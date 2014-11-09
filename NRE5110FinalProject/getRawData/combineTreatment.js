@@ -4,10 +4,10 @@ var request = require('request');
 var fs = require('fs');
 
 var cutoffs = [10, 50, 100];
-var markets = ['BR', 'LS'];
+var markets = ['BR'];
 var rddCombinedSamples = [];
 var procCnt = 0;
-var outputFile = 'treatments.dat';
+var outputFile = 'treatments.dat.txt';
 
 for(var m = 0; m < markets.length; m++) {
 	for(var c = 0; c < cutoffs.length; c++) {

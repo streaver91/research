@@ -15,8 +15,12 @@ var calcTreatment = function(cutoff) {
 		if(quotes == null) continue;
 		var treatAvg = 0.0;
 		var high = 0.0, low = 10000.0;
-		var open, close, x;
+		var open, close, x, cnt = 0;
 		for(var d = 0; d < quotes.length; d++) {
+			if(/2014-0[4-6]/.test(quotes[d][0]) == false) {
+				continue;
+			}
+			cnt++;
 			open = quotes[d][1];
 			if(high < quotes[d][2]) high = quotes[d][2];
 			if(low > quotes[d][3]) low = quotes[d][3];
@@ -32,11 +36,15 @@ var calcTreatment = function(cutoff) {
 				}
 			}
 		}
-		treatAvg /= quotes.length;
+		if(cnt == 0) {
+			continue;
+		}
+		
+		treatAvg /= cnt;
 		
 		if(high > cutoff && low < cutoff) {
 			rddSamples.push([tics[t], treatAvg]);
-			console.log('TIC: ' + tics[t] + ', treatAvg: ' + treatAvg);
+			console.log('TIC: ' + tics[t] + ', treatAvg: ' + treatAvg + '; ' + cnt);
 		}
 	}
 	fs.writeFile(outputFile, JSON.stringify(rddSamples), function(err) {
