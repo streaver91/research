@@ -5,18 +5,19 @@ var fs = require('fs');
 
 var tics, prices;
 var outStr = [];
-outStr.push(['tics', 'cnt', 'relTics', 'absTics'].join('\t'));
+outStr.push(['tics', 'cnt', 'avgprice', 'relTics', 'absTics'].join('\t'));
 
 var outputFile = 'tickRelAbs.dat.txt';
 
 var calcTicksize = function(month) {
 	for(var t = 0; t < tics.length; t++) {
 		if(prices[t]) {
-			var relSum = 0, absSum = 0, cnt = 0;
+			var relSum = 0, absSum = 0, cnt = 0, priceSum = 0;
 			for(var d = 0; d < prices[t].length; d++) {
 				if(/2014-0[4-6]/.test(prices[t][d][0])) {
 					cnt++;
 					var avgPrice = (prices[t][d][1] + prices[t][d][4]) / 2;
+					priceSum += avgPrice;
 					var absPrice;
 					if(/2014-0[4-6]-0[1-6]/.test(prices[t][d][0])) {
 						absPrice = 0.01;
@@ -35,7 +36,7 @@ var calcTicksize = function(month) {
 					relSum += absPrice / avgPrice;
 				}
 			}
-			var rst = [tics[t], cnt, relSum / cnt, absSum / cnt];
+			var rst = [tics[t], cnt, priceSum / cnt, relSum / cnt, absSum / cnt];
 			console.log(rst.join('\t'));
 			if(cnt > 50) {
 				outStr.push(rst.join('\t'));

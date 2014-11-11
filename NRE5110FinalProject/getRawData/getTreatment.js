@@ -8,6 +8,7 @@ var cutoff = parseFloat(argv.c);
 var tics, prices;
 var rddSamples = [];
 var outputFile = 'Cut' + argv.c + '.' + argv.f;
+var window = 0.2;
 
 var calcTreatment = function(cutoff) {
 	for(var t = 0; t < tics.length; t++) {
@@ -42,7 +43,7 @@ var calcTreatment = function(cutoff) {
 		
 		treatAvg /= cnt;
 		
-		if(high > cutoff && low < cutoff) {
+		if(high > cutoff * (1 - window) && low < cutoff * (1 + window)) {
 			rddSamples.push([tics[t], treatAvg]);
 			console.log('TIC: ' + tics[t] + ', treatAvg: ' + treatAvg + '; ' + cnt);
 		}
