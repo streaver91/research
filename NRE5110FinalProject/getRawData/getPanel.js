@@ -10,6 +10,8 @@ var tics, prices;
 var outStr = [];
 outStr.push(['season', 'tic', 'treat'].join('\t'));
 
+var RDD = 0;
+
 var seasonFilter = [/2013-0[6-9]/, /2013-1[0-2]/, /2014-0[1-3]/, /2014-0[4-6]/];
 
 var getPanel = function() {
@@ -44,6 +46,11 @@ var getPanel = function() {
 			} else {
 				treat = 0;
 			}
+			if(RDD) {
+				if(avgPrice < 20 || avgPrice > 80) {
+					continue;
+				}
+			}
 			var tmpRst = [s, tics[t], treat, avgVol];
 			console.log(tmpRst.join('\t'));
 			if(cnt > 50 && avgVol > 0) {
@@ -54,7 +61,7 @@ var getPanel = function() {
 			outStr.push(curRst.join('\n'));
 		}
 	}
-	fs.writeFile('ticPanel.dat.txt', outStr.join('\n'), function(err) {
+	fs.writeFile(RDD + 'ticPanel.dat.txt', outStr.join('\n'), function(err) {
 		if(err) console.log(err);
 		else console.log('Ticksize panel data saved');
 	});
