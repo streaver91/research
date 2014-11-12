@@ -8,9 +8,10 @@ var fs = require('fs');
 var tics, prices;
 
 var outStr = [];
-outStr.push(['season', 'tic', 'treat'].join('\t'));
+outStr.push(['season', 'tic', 'treat', 'avgvol', 'ticnum'].join('\t'));
 
-var RDD = 0;
+var RDD = 1;
+var PLACEBO = 1;
 
 var seasonFilter = [/2013-0[6-9]/, /2013-1[0-2]/, /2014-0[1-3]/, /2014-0[4-6]/];
 
@@ -26,6 +27,7 @@ var getPanel = function() {
 		}
 		var curRst = [];
 		for(var s = 0; s < 4; s++) {
+			if(PLACEBO && s >= 2) continue;
 			var avgPrice = 0, avgVol = 0, cnt = 0;
 			var treat;
 			for(var d = 0; d < prices[t].length; d++) {
@@ -41,7 +43,7 @@ var getPanel = function() {
 				// Ignore higher increase tick size
 				continue;
 			}
-			if(avgPrice < 50) {
+			if(avgPrice < 50 && ((s == 3 && PLACEBO == 0) || (s == 1 && PLACEBO == 1))) {
 				treat = 1;
 			} else {
 				treat = 0;
@@ -51,17 +53,17 @@ var getPanel = function() {
 					continue;
 				}
 			}
-			var tmpRst = [s, tics[t], treat, avgVol];
+			var tmpRst = [s + 1, tics[t], treat, avgVol, t];
 			console.log(tmpRst.join('\t'));
 			if(cnt > 50 && avgVol > 0) {
 				outStr.push(tmpRst.join('\t'));
 			}
 		}
-		if(curRst.length == 4) {
+		if(curRst.length == 4 || (curRst == 2 && PLACEBO == 1)) {
 			outStr.push(curRst.join('\n'));
 		}
 	}
-	fs.writeFile(RDD + 'ticPanel.dat.txt', outStr.join('\n'), function(err) {
+	fs.writeFile(RDD + '_' + PLACEBO + '_ticPanel.dat.txt', outStr.join('\n'), function(err) {
 		if(err) console.log(err);
 		else console.log('Ticksize panel data saved');
 	});
