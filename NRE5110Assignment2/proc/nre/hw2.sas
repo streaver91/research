@@ -35,5 +35,6 @@ proc sql;
 quit;
 
 proc export data=nre.hw2raw outfile="U:\nre\hw2raw.dta" replace; run;
+proc export data=nre.hw2raw outfile="U:\nre\hw2raw.dta" replace; run;
 
 
