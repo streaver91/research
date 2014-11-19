@@ -1,0 +1,1057 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  U:\nre\hw2.log
+  log type:  text
+ opened on:  15 Nov 2014, 11:54:44
+
+. 
+. xtset gvkey fyear
+       panel variable:  gvkey (unbalanced)
+        time variable:  fyear, 1990 to 2012, but with gaps
+                delta:  1 unit
+
+. 
+. winsor q, gen(w_q) p(0.05)
+
+. winsor cashflow, gen(w_cashflow) p(0.05)
+
+. winsor investment, gen(w_investment) p(0.05)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0046                         Obs per group: min =         1
+       between = 0.0078                                        avg =       8.0
+       overall = 0.0051                                        max =        23
+
+                                                F(2,43380)         =     99.67
+corr(u_i, Xb)  = -0.0007                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0178346   .0015314    11.65   0.000      .014833    .0208362
+    cashflow |   .0032385   .0002294    14.12   0.000     .0027889     .003688
+       _cons |   .5926027   .1119953     5.29   0.000     .3730898    .8121157
+-------------+----------------------------------------------------------------
+     sigma_u |  10.309366
+     sigma_e |   24.90347
+         rho |  .14630149   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.13         Prob > F = 0.0000
+
+. xtreg investment lq lcashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0047                         Obs per group: min =         1
+       between = 0.0002                                        avg =       8.0
+       overall = 0.0028                                        max =        23
+
+                                                F(2,43380)         =    102.22
+corr(u_i, Xb)  = -0.0705                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          lq |  -.0125509   .0020595    -6.09   0.000    -.0165875   -.0085143
+   lcashflow |  -.0133449   .0009406   -14.19   0.000    -.0151886   -.0115013
+       _cons |   .5585408   .1122441     4.98   0.000     .3385402    .7785414
+-------------+----------------------------------------------------------------
+     sigma_u |  10.497027
+     sigma_e |  24.902013
+         rho |  .15088033   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.15         Prob > F = 0.0000
+
+. xtreg w_investment w_q w_cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0321                         Obs per group: min =         1
+       between = 0.0805                                        avg =       8.0
+       overall = 0.0593                                        max =        23
+
+                                                F(2,43380)         =    718.81
+corr(u_i, Xb)  = -0.1126                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+w_investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         w_q |   .0267373   .0011026    24.25   0.000     .0245762    .0288983
+  w_cashflow |  -.0098887   .0003794   -26.06   0.000    -.0106324    -.009145
+       _cons |   .2323101     .00295    78.75   0.000     .2265281     .238092
+-------------+----------------------------------------------------------------
+     sigma_u |  .24946705
+     sigma_e |  .29675927
+         rho |  .41406428   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     2.94         Prob > F = 0.0000
+
+. 
+. sum q, detail
+
+                              q
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .5153292       .1153303
+ 5%     .7242037        .143532
+10%     .8455055       .1450656       Obs               49572
+25%     1.075535       .1513847       Sum of Wgt.       49572
+
+50%     1.547543                      Mean           5.367764
+                        Largest       Std. Dev.      142.8518
+75%     2.697751       4076.029
+90%     5.309692        5608.79       Variance       20406.63
+95%     8.691046       13908.59       Skewness        143.097
+99%     35.68409       25969.27       Kurtosis       23924.79
+
+. drop if q < r(p5) | q > r(p95)
+(4956 observations deleted)
+
+. sum investment, detail
+
+                         investment
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.1599737          -3500
+ 5%     .0074738      -239.0244
+10%     .0362731         -72.21       Obs               44616
+25%     .0994644          -36.8       Sum of Wgt.       44616
+
+50%     .1983281                      Mean           .6188799
+                        Largest       Std. Dev.      26.37757
+75%     .3924251           1071
+90%     .7885117       1226.833       Variance        695.776
+95%     1.258613           2211       Skewness      -2.868774
+99%         3.73           2919       Kurtosis       11658.22
+
+. drop if investment < r(p5) | investment > r(p95)
+(4460 observations deleted)
+
+. sum cashflow, detail
+
+                          cashflow
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -49.28879      -3098.125
+ 5%    -10.24547          -1833
+10%    -4.160477          -1611       Obs               40156
+25%    -.2516744      -1565.585       Sum of Wgt.       40156
+
+50%     .2791064                      Mean          -2.216342
+                        Largest       Std. Dev.      33.51471
+75%     .6630726        327.448
+90%     1.451292       475.7647       Variance       1123.236
+95%     2.463013       605.5143       Skewness      -27.15437
+99%     7.574028       2489.833       Kurtosis        3310.83
+
+. drop if cashflow < r(p5) | cashflow > r(p95)
+(4014 observations deleted)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     36142
+Group variable: gvkey                           Number of groups   =      5382
+
+R-sq:  within  = 0.0166                         Obs per group: min =         1
+       between = 0.0255                                        avg =       6.7
+       overall = 0.0311                                        max =        23
+
+                                                F(2,30758)         =    258.89
+corr(u_i, Xb)  = 0.0408                         Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0271603   .0012221    22.22   0.000     .0247649    .0295557
+    cashflow |   .0039442   .0009348     4.22   0.000      .002112    .0057764
+       _cons |   .2044028   .0025521    80.09   0.000     .1994005     .209405
+-------------+----------------------------------------------------------------
+     sigma_u |  .17262938
+     sigma_e |   .1926551
+         rho |  .44534202   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(5381, 30758) =     2.95         Prob > F = 0.0000
+
+. 
+end of do-file
+
+. do "U:\nre\hw2.do"
+
+. clear all
+
+. set more off
+
+. 
+. cd U:\nre\
+U:\nre
+
+. use U:\nre\hw2raw
+
+. log using hw2.log
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. do "U:\nre\hw2.do"
+
+. clear all
+
+. set more off
+
+. 
+. cd U:\nre\
+U:\nre
+
+. use U:\nre\hw2raw
+
+. log using hw2.log
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. do "U:\nre\hw2.do"
+
+. clear all
+
+. set more off
+
+. 
+. cd U:\nre\
+U:\nre
+
+. use U:\nre\hw2raw
+
+. *log using hw2.log
+. 
+. xtset gvkey fyear
+       panel variable:  gvkey (unbalanced)
+        time variable:  fyear, 1990 to 2012, but with gaps
+                delta:  1 unit
+
+. 
+. winsor q, gen(w_q) p(0.05)
+
+. winsor cashflow, gen(w_cashflow) p(0.05)
+
+. winsor investment, gen(w_investment) p(0.05)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0046                         Obs per group: min =         1
+       between = 0.0078                                        avg =       8.0
+       overall = 0.0051                                        max =        23
+
+                                                F(2,43380)         =     99.67
+corr(u_i, Xb)  = -0.0007                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0178346   .0015314    11.65   0.000      .014833    .0208362
+    cashflow |   .0032385   .0002294    14.12   0.000     .0027889     .003688
+       _cons |   .5926027   .1119953     5.29   0.000     .3730898    .8121157
+-------------+----------------------------------------------------------------
+     sigma_u |  10.309366
+     sigma_e |   24.90347
+         rho |  .14630149   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.13         Prob > F = 0.0000
+
+. xtreg investment lq lcashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0047                         Obs per group: min =         1
+       between = 0.0002                                        avg =       8.0
+       overall = 0.0028                                        max =        23
+
+                                                F(2,43380)         =    102.22
+corr(u_i, Xb)  = -0.0705                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          lq |  -.0125509   .0020595    -6.09   0.000    -.0165875   -.0085143
+   lcashflow |  -.0133449   .0009406   -14.19   0.000    -.0151886   -.0115013
+       _cons |   .5585408   .1122441     4.98   0.000     .3385402    .7785414
+-------------+----------------------------------------------------------------
+     sigma_u |  10.497027
+     sigma_e |  24.902013
+         rho |  .15088033   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.15         Prob > F = 0.0000
+
+. xtreg w_investment w_q w_cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0321                         Obs per group: min =         1
+       between = 0.0805                                        avg =       8.0
+       overall = 0.0593                                        max =        23
+
+                                                F(2,43380)         =    718.81
+corr(u_i, Xb)  = -0.1126                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+w_investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         w_q |   .0267373   .0011026    24.25   0.000     .0245762    .0288983
+  w_cashflow |  -.0098887   .0003794   -26.06   0.000    -.0106324    -.009145
+       _cons |   .2323101     .00295    78.75   0.000     .2265281     .238092
+-------------+----------------------------------------------------------------
+     sigma_u |  .24946705
+     sigma_e |  .29675927
+         rho |  .41406428   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     2.94         Prob > F = 0.0000
+
+. 
+. sum q, detail
+
+                              q
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .5153292       .1153303
+ 5%     .7242037        .143532
+10%     .8455055       .1450656       Obs               49572
+25%     1.075535       .1513847       Sum of Wgt.       49572
+
+50%     1.547543                      Mean           5.367764
+                        Largest       Std. Dev.      142.8518
+75%     2.697751       4076.029
+90%     5.309692        5608.79       Variance       20406.63
+95%     8.691046       13908.59       Skewness        143.097
+99%     35.68409       25969.27       Kurtosis       23924.79
+
+. drop if q < r(p5) | q > r(p95)
+(4956 observations deleted)
+
+. sum investment, detail
+
+                         investment
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.1599737          -3500
+ 5%     .0074738      -239.0244
+10%     .0362731         -72.21       Obs               44616
+25%     .0994644          -36.8       Sum of Wgt.       44616
+
+50%     .1983281                      Mean           .6188799
+                        Largest       Std. Dev.      26.37757
+75%     .3924251           1071
+90%     .7885117       1226.833       Variance        695.776
+95%     1.258613           2211       Skewness      -2.868774
+99%         3.73           2919       Kurtosis       11658.22
+
+. drop if investment < r(p5) | investment > r(p95)
+(4460 observations deleted)
+
+. sum cashflow, detail
+
+                          cashflow
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -49.28879      -3098.125
+ 5%    -10.24547          -1833
+10%    -4.160477          -1611       Obs               40156
+25%    -.2516744      -1565.585       Sum of Wgt.       40156
+
+50%     .2791064                      Mean          -2.216342
+                        Largest       Std. Dev.      33.51471
+75%     .6630726        327.448
+90%     1.451292       475.7647       Variance       1123.236
+95%     2.463013       605.5143       Skewness      -27.15437
+99%     7.574028       2489.833       Kurtosis        3310.83
+
+. drop if cashflow < r(p5) | cashflow > r(p95)
+(4014 observations deleted)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     36142
+Group variable: gvkey                           Number of groups   =      5382
+
+R-sq:  within  = 0.0166                         Obs per group: min =         1
+       between = 0.0255                                        avg =       6.7
+       overall = 0.0311                                        max =        23
+
+                                                F(2,30758)         =    258.89
+corr(u_i, Xb)  = 0.0408                         Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0271603   .0012221    22.22   0.000     .0247649    .0295557
+    cashflow |   .0039442   .0009348     4.22   0.000      .002112    .0057764
+       _cons |   .2044028   .0025521    80.09   0.000     .1994005     .209405
+-------------+----------------------------------------------------------------
+     sigma_u |  .17262938
+     sigma_e |   .1926551
+         rho |  .44534202   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(5381, 30758) =     2.95         Prob > F = 0.0000
+
+. 
+. clear all
+
+. use U:\nre\hw2raw
+
+. 
+end of do-file
+
+. su investment
+
+    Variable |       Obs        Mean    Std. Dev.       Min        Max
+-------------+--------------------------------------------------------
+  investment |     49572    .6389416    25.16995      -3500       2919
+
+. do "U:\nre\hw2.do"
+
+. clear all
+
+. set more off
+
+. 
+. cd U:\nre\
+U:\nre
+
+. use U:\nre\hw2raw
+
+. *log using hw2.log
+. 
+. xtset gvkey fyear
+       panel variable:  gvkey (unbalanced)
+        time variable:  fyear, 1990 to 2012, but with gaps
+                delta:  1 unit
+
+. 
+. sum q, detail
+
+                              q
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .5153292       .1153303
+ 5%     .7242037        .143532
+10%     .8455055       .1450656       Obs               49572
+25%     1.075535       .1513847       Sum of Wgt.       49572
+
+50%     1.547543                      Mean           5.367764
+                        Largest       Std. Dev.      142.8518
+75%     2.697751       4076.029
+90%     5.309692        5608.79       Variance       20406.63
+95%     8.691046       13908.59       Skewness        143.097
+99%     35.68409       25969.27       Kurtosis       23924.79
+
+. drop if q < r(p5) | q > r(p95)
+(4956 observations deleted)
+
+. sum investment, detail
+
+                         investment
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.1599737          -3500
+ 5%     .0074738      -239.0244
+10%     .0362731         -72.21       Obs               44616
+25%     .0994644          -36.8       Sum of Wgt.       44616
+
+50%     .1983281                      Mean           .6188799
+                        Largest       Std. Dev.      26.37757
+75%     .3924251           1071
+90%     .7885117       1226.833       Variance        695.776
+95%     1.258613           2211       Skewness      -2.868774
+99%         3.73           2919       Kurtosis       11658.22
+
+. drop if investment < r(p5) | investment > r(p95)
+(4460 observations deleted)
+
+. sum cashflow, detail
+
+                          cashflow
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -49.28879      -3098.125
+ 5%    -10.24547          -1833
+10%    -4.160477          -1611       Obs               40156
+25%    -.2516744      -1565.585       Sum of Wgt.       40156
+
+50%     .2791064                      Mean          -2.216342
+                        Largest       Std. Dev.      33.51471
+75%     .6630726        327.448
+90%     1.451292       475.7647       Variance       1123.236
+95%     2.463013       605.5143       Skewness      -27.15437
+99%     7.574028       2489.833       Kurtosis        3310.83
+
+. drop if cashflow < r(p5) | cashflow > r(p95)
+(4014 observations deleted)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     36142
+Group variable: gvkey                           Number of groups   =      5382
+
+R-sq:  within  = 0.0166                         Obs per group: min =         1
+       between = 0.0255                                        avg =       6.7
+       overall = 0.0311                                        max =        23
+
+                                                F(2,30758)         =    258.89
+corr(u_i, Xb)  = 0.0408                         Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0271603   .0012221    22.22   0.000     .0247649    .0295557
+    cashflow |   .0039442   .0009348     4.22   0.000      .002112    .0057764
+       _cons |   .2044028   .0025521    80.09   0.000     .1994005     .209405
+-------------+----------------------------------------------------------------
+     sigma_u |  .17262938
+     sigma_e |   .1926551
+         rho |  .44534202   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(5381, 30758) =     2.95         Prob > F = 0.0000
+
+. 
+. clear all
+
+. use U:\nre\hw2raw
+
+. 
+. winsor q, gen(w_q) p(0.05)
+
+. winsor cashflow, gen(w_cashflow) p(0.05)
+
+. winsor investment, gen(w_investment) p(0.05)
+
+. 
+. xtreg investment q cashflow, fe
+must specify panelvar; use xtset
+r(459);
+
+end of do-file
+
+r(459);
+
+. do "U:\nre\hw2.do"
+
+. clear all
+
+. set more off
+
+. 
+. cd U:\nre\
+U:\nre
+
+. use U:\nre\hw2raw
+
+. *log using hw2.log
+. 
+. xtset gvkey fyear
+       panel variable:  gvkey (unbalanced)
+        time variable:  fyear, 1990 to 2012, but with gaps
+                delta:  1 unit
+
+. 
+. sum q, detail
+
+                              q
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .5153292       .1153303
+ 5%     .7242037        .143532
+10%     .8455055       .1450656       Obs               49572
+25%     1.075535       .1513847       Sum of Wgt.       49572
+
+50%     1.547543                      Mean           5.367764
+                        Largest       Std. Dev.      142.8518
+75%     2.697751       4076.029
+90%     5.309692        5608.79       Variance       20406.63
+95%     8.691046       13908.59       Skewness        143.097
+99%     35.68409       25969.27       Kurtosis       23924.79
+
+. drop if q < r(p5) | q > r(p95)
+(4956 observations deleted)
+
+. sum investment, detail
+
+                         investment
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -.1599737          -3500
+ 5%     .0074738      -239.0244
+10%     .0362731         -72.21       Obs               44616
+25%     .0994644          -36.8       Sum of Wgt.       44616
+
+50%     .1983281                      Mean           .6188799
+                        Largest       Std. Dev.      26.37757
+75%     .3924251           1071
+90%     .7885117       1226.833       Variance        695.776
+95%     1.258613           2211       Skewness      -2.868774
+99%         3.73           2919       Kurtosis       11658.22
+
+. drop if investment < r(p5) | investment > r(p95)
+(4460 observations deleted)
+
+. sum cashflow, detail
+
+                          cashflow
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -49.28879      -3098.125
+ 5%    -10.24547          -1833
+10%    -4.160477          -1611       Obs               40156
+25%    -.2516744      -1565.585       Sum of Wgt.       40156
+
+50%     .2791064                      Mean          -2.216342
+                        Largest       Std. Dev.      33.51471
+75%     .6630726        327.448
+90%     1.451292       475.7647       Variance       1123.236
+95%     2.463013       605.5143       Skewness      -27.15437
+99%     7.574028       2489.833       Kurtosis        3310.83
+
+. drop if cashflow < r(p5) | cashflow > r(p95)
+(4014 observations deleted)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     36142
+Group variable: gvkey                           Number of groups   =      5382
+
+R-sq:  within  = 0.0166                         Obs per group: min =         1
+       between = 0.0255                                        avg =       6.7
+       overall = 0.0311                                        max =        23
+
+                                                F(2,30758)         =    258.89
+corr(u_i, Xb)  = 0.0408                         Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0271603   .0012221    22.22   0.000     .0247649    .0295557
+    cashflow |   .0039442   .0009348     4.22   0.000      .002112    .0057764
+       _cons |   .2044028   .0025521    80.09   0.000     .1994005     .209405
+-------------+----------------------------------------------------------------
+     sigma_u |  .17262938
+     sigma_e |   .1926551
+         rho |  .44534202   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(5381, 30758) =     2.95         Prob > F = 0.0000
+
+. 
+. clear all
+
+. use U:\nre\hw2raw
+
+. 
+. xtset gvkey fyear
+       panel variable:  gvkey (unbalanced)
+        time variable:  fyear, 1990 to 2012, but with gaps
+                delta:  1 unit
+
+. 
+. winsor q, gen(w_q) p(0.05)
+
+. winsor cashflow, gen(w_cashflow) p(0.05)
+
+. winsor investment, gen(w_investment) p(0.05)
+
+. 
+. xtreg investment q cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0046                         Obs per group: min =         1
+       between = 0.0078                                        avg =       8.0
+       overall = 0.0051                                        max =        23
+
+                                                F(2,43380)         =     99.67
+corr(u_i, Xb)  = -0.0007                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+           q |   .0178346   .0015314    11.65   0.000      .014833    .0208362
+    cashflow |   .0032385   .0002294    14.12   0.000     .0027889     .003688
+       _cons |   .5926027   .1119953     5.29   0.000     .3730898    .8121157
+-------------+----------------------------------------------------------------
+     sigma_u |  10.309366
+     sigma_e |   24.90347
+         rho |  .14630149   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.13         Prob > F = 0.0000
+
+. xtreg investment lq lcashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0047                         Obs per group: min =         1
+       between = 0.0002                                        avg =       8.0
+       overall = 0.0028                                        max =        23
+
+                                                F(2,43380)         =    102.22
+corr(u_i, Xb)  = -0.0705                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+  investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          lq |  -.0125509   .0020595    -6.09   0.000    -.0165875   -.0085143
+   lcashflow |  -.0133449   .0009406   -14.19   0.000    -.0151886   -.0115013
+       _cons |   .5585408   .1122441     4.98   0.000     .3385402    .7785414
+-------------+----------------------------------------------------------------
+     sigma_u |  10.497027
+     sigma_e |  24.902013
+         rho |  .15088033   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     1.15         Prob > F = 0.0000
+
+. xtreg w_investment w_q w_cashflow, fe
+
+Fixed-effects (within) regression               Number of obs      =     49572
+Group variable: gvkey                           Number of groups   =      6190
+
+R-sq:  within  = 0.0321                         Obs per group: min =         1
+       between = 0.0805                                        avg =       8.0
+       overall = 0.0593                                        max =        23
+
+                                                F(2,43380)         =    718.81
+corr(u_i, Xb)  = -0.1126                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+w_investment |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         w_q |   .0267373   .0011026    24.25   0.000     .0245762    .0288983
+  w_cashflow |  -.0098887   .0003794   -26.06   0.000    -.0106324    -.009145
+       _cons |   .2323101     .00295    78.75   0.000     .2265281     .238092
+-------------+----------------------------------------------------------------
+     sigma_u |  .24946705
+     sigma_e |  .29675927
+         rho |  .41406428   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(6189, 43380) =     2.94         Prob > F = 0.0000
+
+. 
+. 
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. generate random = runiform()
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01
+(504 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01
+(504 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.02
+(1006 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019
+(953 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.0195
+(977 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.0199
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01985
+(996 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01989
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01988
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01987
+(998 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019875
+(998 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01988
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. 
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019885
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. 
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019889
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01989
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019899
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.0199
+(999 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01999
+(1006 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019985
+(1006 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.019980
+(1006 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01995
+(1004 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. drop sample
+
+. gen sample = 0
+
+. replace sample = 1 if random < 0.01992
+(1000 real changes made)
+
+. 
+end of do-file
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. use U:\nre\hw2raw
+no; data in memory would be lost
+r(4);
+
+end of do-file
+
+r(4);
+
+. save "U:\nre\hw2withRandom.dta"
+file U:\nre\hw2withRandom.dta saved
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. nnmatch investment cashflow size leverage tangibility zscore, m(1) exact(sic) keep(match.dta)
+treatment variable must be 0 or 1
+r(498);
+
+end of do-file
+
+r(498);
+
+. do "C:\Users\JL2922~1\AppData\Local\Temp\28\STD00000000.tmp"
+
+. nnmatch investment sample size leverage tangibility zscore, m(1) exact(sic) keep(match.dta)
