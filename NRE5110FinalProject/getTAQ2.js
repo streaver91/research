@@ -9,9 +9,12 @@ var _symbolCnt;
 var _selectArr = [];
 var TOTAL_ITEMS = 155;
 var THRESHOLD = 0.8;
-var TOTAL_CNT = 507;
-var TOTAL_DAY_AFTER = 184;
+var TOTAL_CNT = 127;
+var TOTAL_DAY_AFTER = 57;
 var ABRUPT_CHANGE_THRESHOLD = 0.2;
+var TREAT_THRESHOLD = 30;
+var JUN14_STATEMENT_DATE = new Date('06/30/2014');
+var DEC13_STATEMENT_DATE = new Date('12/30/2013');
 
 var getList = function() {
   var URL_LIST = 'https://www.euronext.com/pd/stocks/data?formKey=nyx_pd_filter_values:9dd8d9f06e09de0e925d10509a8c8642';
@@ -75,8 +78,8 @@ var getTaq = function() {
         'isin': _isinArr[i],
         'name': _nameArr[i],
         'namefile': 'Price_Data_Historical',
-        'from': '1356998400000',
-        'to': '1419379200000',
+        'from': (new Date(DEC13_STATEMENT_DATE)).getTime(),
+        'to': (new Date(JUN14_STATEMENT_DATE)).getTime(),
         'adjusted': '1',
         'base': '0'
       };
@@ -98,7 +101,7 @@ var getTaq = function() {
           var low = parseFloat(curData[5]);
           var close = parseFloat(curData[6]);
           var dayAvg = (open + high + low + close) / 4;
-          if(cnt > 0 && Math.abs(lastDayAvg / dayAvg - 1) > ABRUPT_CHANGE_THRESHOLD) {
+          if(cnt > 0 && Math.abs(lastDayAvg / dayAvg - 1) > ABRUPT_CHANGE_THRESHOLD && date < JUN14_STATEMENT_DATE && date > DEC13_STATEMENT_DATE) {
             console.log('Abrupt Change: ' + _symbolArr[curI] + ' from ' + lastDayAvg + ' to ' + dayAvg + ' on day ' + curData[2]);
             _selectArr[curI] = false;
           }
@@ -108,7 +111,7 @@ var getTaq = function() {
           cnt++;
           if(TREAT_START_DATE < date) {
             cntAfterTreatStart++;
-            if(dayAvg < 50) {
+            if(dayAvg < TREAT_THRESHOLD) {
               avgTreat++;
             }
           }

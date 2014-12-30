@@ -9,11 +9,12 @@ var step = 0;
 var titleLoaded = false;
 var seasonLoadedCnt = 0;
 
-var MODE = '';
+var MODE = 'rdd';
 var RDD_WINDOW = 30;
 var LOCAL_LEFT = 0;
 var LOCAL_RIGHT = 10;
 var FILE_OUTPUT = 'panel.txt';
+var FILE_INPUT = 'treatment_placebo.txt';
 
 if(MODE == 'rdd') FILE_OUTPUT = 'rdd' + RDD_WINDOW + '_' + FILE_OUTPUT;
 if(MODE == 'la') FILE_OUTPUT = 'la' + LOCAL_LEFT + '_' + LOCAL_RIGHT + '_' + FILE_OUTPUT;
@@ -36,7 +37,7 @@ Array.prototype.unique = function() {
 
 var loadTreatment = function() {
   
-  fs.readFile('treatment.txt', 'utf-8', function(err, res) {
+  fs.readFile(FILE_INPUT, 'utf-8', function(err, res) {
     if(err) {
       console.log(err);
       return;

@@ -32,6 +32,7 @@ fs.readFile(FILE_INPUT, 'utf-8', function(err, res) {
     for(var j = 0; j < data.length; j++) {
       if(data[j][COL_SEASON] != '3') continue;
       if(data[j][COL_TIC] != curTic) continue;
+      if(parseInt(data[j][COL_LTINV]) == 0 && parseInt(data[i][COL_LTINV]) == 0) continue;
       ticArr.push(curTic);
       avgArr.push(data[i][COL_AVG]);
       var totalAssets = parseFloat(data[i][COL_AT]);
