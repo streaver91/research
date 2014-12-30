@@ -8,6 +8,12 @@ var COL_TREAT = 2;
 var COL_AVG = 3;
 var COL_LTINV = 26;
 var COL_AT = 32;
+var PLACEBO = 0;
+
+if(PLACEBO) {
+  FILE_INPUT = 'placebo_' + FILE_INPUT;
+  FILE_OUTPUT = 'placebo_' + FILE_OUTPUT;
+}
 
 var data = [];
 

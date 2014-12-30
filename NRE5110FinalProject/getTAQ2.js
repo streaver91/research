@@ -11,10 +11,11 @@ var TOTAL_ITEMS = 155;
 var THRESHOLD = 0.8;
 var TOTAL_CNT = 127;
 var TOTAL_DAY_AFTER = 57;
-var ABRUPT_CHANGE_THRESHOLD = 0.2;
-var TREAT_THRESHOLD = 30;
+var ABRUPT_CHANGE_THRESHOLD = 50;
+var TREAT_THRESHOLD = 50;
 var JUN14_STATEMENT_DATE = new Date('06/30/2014');
 var DEC13_STATEMENT_DATE = new Date('12/30/2013');
+var SPLIT_STOCKS = ['ABO', 'CPINV'];
 
 var getList = function() {
   var URL_LIST = 'https://www.euronext.com/pd/stocks/data?formKey=nyx_pd_filter_values:9dd8d9f06e09de0e925d10509a8c8642';
@@ -103,6 +104,10 @@ var getTaq = function() {
           var dayAvg = (open + high + low + close) / 4;
           if(cnt > 0 && Math.abs(lastDayAvg / dayAvg - 1) > ABRUPT_CHANGE_THRESHOLD && date < JUN14_STATEMENT_DATE && date > DEC13_STATEMENT_DATE) {
             console.log('Abrupt Change: ' + _symbolArr[curI] + ' from ' + lastDayAvg + ' to ' + dayAvg + ' on day ' + curData[2]);
+            _selectArr[curI] = false;
+          }
+          if(SPLIT_STOCKS.indexOf(_symbolArr[curI]) >= 0) {
+            console.log('Split: ' + _symbolArr[curI]);
             _selectArr[curI] = false;
           }
           lastDayAvg = dayAvg;

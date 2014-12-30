@@ -10,12 +10,17 @@ var titleLoaded = false;
 var seasonLoadedCnt = 0;
 
 var MODE = 'rdd';
-var RDD_WINDOW = 30;
+var RDD_WINDOW = 10;
 var LOCAL_LEFT = 0;
 var LOCAL_RIGHT = 10;
 var FILE_OUTPUT = 'panel.txt';
-var FILE_INPUT = 'treatment_placebo.txt';
+var FILE_INPUT = 'treatment.txt';
+var PLACEBO = 0;
 
+if(PLACEBO) {
+  FILE_INPUT = 'placebo_' + FILE_INPUT;
+  FILE_OUTPUT = 'placebo_' + FILE_OUTPUT;
+}
 if(MODE == 'rdd') FILE_OUTPUT = 'rdd' + RDD_WINDOW + '_' + FILE_OUTPUT;
 if(MODE == 'la') FILE_OUTPUT = 'la' + LOCAL_LEFT + '_' + LOCAL_RIGHT + '_' + FILE_OUTPUT;
 
