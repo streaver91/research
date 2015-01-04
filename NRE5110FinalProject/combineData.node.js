@@ -9,7 +9,7 @@ var step = 0;
 var titleLoaded = false;
 var seasonLoadedCnt = 0;
 
-var MODE = 'rdd';
+var MODE = '';
 var RDD_WINDOW = 10;
 var LOCAL_LEFT = 0;
 var LOCAL_RIGHT = 10;
@@ -49,13 +49,14 @@ var loadTreatment = function() {
     }
     
     res = res.split('\r\n');
+    // console.log(res);
     for(var i = 0; i < res.length; i++) {
       var curRec = res[i].split('\t');
-      if(curRec.length != 3) return;
+      if(curRec.length < 3) return;
       for(var s = 0; s < 3; s++) {
         data.push([s, curRec[0], 0, curRec[2]]);
       }
-      // season, tic, treat, avg
+      // Data: season, tic, treat, avg
       data.push([s, curRec[0], curRec[1], curRec[2]]);
     }
     console.log('loadTreatment Finished');

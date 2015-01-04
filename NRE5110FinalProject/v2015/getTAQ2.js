@@ -6,7 +6,7 @@ var DATES = [
   new Date('6/30/2014'),
   new Date('12/31/2014')
 ];
-var HALF = 3;
+var HALF = 0;
 var START_DATE = DATES[HALF];
 var END_DATE = DATES[HALF + 1];
 var SPLIT_STOCKS = ['ABO', 'CPINV'];
@@ -82,6 +82,10 @@ var getList = function() {
 var dataHandler = function(curI) {
   return (function(data) {
     data = data.split('\n');
+    if(data.length < 1) {
+      console.log('ERR: Data Unavailable. ' + symbolArr[curI]);
+      return;
+    }
     var cnt = 0;
     var avg = 0.0;
     var avgTreat = 0;
@@ -195,12 +199,13 @@ var getOutput = function() {
       turnoverArr[i]
     ].join('\t'));
   }
+  console.log('Total Records: ' + (output.length - 1));
   return output.join('\n');
 };
 
-var scfGetOutput = function() {
+var scfGetOutput = function(i) {
   dataScreen();
-  scf.set(0, getOutput());
+  scf.set(i, getOutput());
 };
 
 getList();
