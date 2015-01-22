@@ -1,0 +1,1788 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Evanger\Documents\research\NRE5110FinalProject\v2015\regQuant_turnover.log
+  log type:  text
+ opened on:  19 Jan 2015, 11:22:35
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 1
+(98 observations deleted)
+
+. 
+. xtreg interestexpense2at_11 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.3568                         Obs per group: min =         1
+       between = 0.0436                                        avg =       1.7
+       overall = 0.1552                                        max =         2
+
+                                                F(1,9)             =      4.99
+corr(u_i, Xb)  = -0.0014                        Prob > F           =    0.0523
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0029463   .0013186    -2.23   0.052     -.005929    .0000365
+       _cons |  -.0011935   .0007545    -1.58   0.148    -.0029002    .0005132
+-------------+----------------------------------------------------------------
+     sigma_u |  .00282911
+     sigma_e |  .00279399
+         rho |  .50624511   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 9) =     1.91               Prob > F = 0.1679
+
+. 
+. xtreg interestexpense2at_11 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.3713                         Obs per group: min =         1
+       between = 0.3617                                        avg =       1.7
+       overall = 0.1776                                        max =         2
+
+                                                F(2,8)             =      2.36
+corr(u_i, Xb)  = -0.9743                        Prob > F           =    0.1563
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |    .008079   .0188279     0.43   0.679    -.0353382    .0514962
+       treat |  -.0033784   .0017106    -1.98   0.084    -.0073229    .0005662
+       _cons |  -.0976112   .2247003    -0.43   0.675     -.615771    .4205486
+-------------+----------------------------------------------------------------
+     sigma_u |  .01266878
+     sigma_e |  .00292995
+         rho |  .94922843   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 8) =     1.07               Prob > F = 0.4768
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 2
+(98 observations deleted)
+
+. 
+. xtreg interestexpense2at_11 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.1709                         Obs per group: min =         1
+       between = 0.0001                                        avg =       1.4
+       overall = 0.0005                                        max =         2
+
+                                                F(1,6)             =      1.24
+corr(u_i, Xb)  = -0.0148                        Prob > F           =    0.3087
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |    .000165   .0001484     1.11   0.309    -.0001981    .0005282
+       _cons |  -.0023393   .0000772   -30.29   0.000    -.0025283   -.0021504
+-------------+----------------------------------------------------------------
+     sigma_u |   .0022892
+     sigma_e |  .00027766
+         rho |  .98550216   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 6) =    90.50               Prob > F = 0.0000
+
+. 
+. xtreg interestexpense2at_11 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.9406                         Obs per group: min =         1
+       between = 0.0000                                        avg =       1.4
+       overall = 0.0043                                        max =         2
+
+                                                F(2,5)             =     39.58
+corr(u_i, Xb)  = -0.9681                        Prob > F           =    0.0009
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0041217   .0005121    -8.05   0.000    -.0054381   -.0028052
+       treat |   .0001643   .0000435     3.78   0.013     .0000525    .0002762
+       _cons |   .0525636   .0068216     7.71   0.001      .035028    .0700992
+-------------+----------------------------------------------------------------
+     sigma_u |  .00804903
+     sigma_e |  .00008142
+         rho |  .99989769   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =  1051.93               Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 3
+(99 observations deleted)
+
+. 
+. xtreg interestexpense2at_11 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.2111                         Obs per group: min =         1
+       between = 0.0004                                        avg =       1.3
+       overall = 0.0429                                        max =         2
+
+                                                F(1,5)             =      1.34
+corr(u_i, Xb)  = -0.2966                        Prob > F           =    0.2996
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0091665   .0079237    -1.16   0.300    -.0295351     .011202
+       _cons |  -.0009639    .004193    -0.23   0.827    -.0117423    .0098146
+-------------+----------------------------------------------------------------
+     sigma_u |  .00825814
+     sigma_e |  .01143569
+         rho |   .3427459   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =     0.65               Prob > F = 0.7673
+
+. 
+. xtreg interestexpense2at_11 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.3177                         Obs per group: min =         1
+       between = 0.0166                                        avg =       1.3
+       overall = 0.0005                                        max =         2
+
+                                                F(2,4)             =      0.93
+corr(u_i, Xb)  = -0.9315                        Prob > F           =    0.4655
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .0115062   .0145542     0.79   0.473    -.0289027     .051915
+       treat |  -.0113111   .0086738    -1.30   0.262    -.0353933    .0127711
+       _cons |  -.1512485    .190145    -0.80   0.471    -.6791755    .3766785
+-------------+----------------------------------------------------------------
+     sigma_u |  .02400866
+     sigma_e |  .01189025
+         rho |  .80303802   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 4) =     0.64               Prob > F = 0.7728
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 4
+(98 observations deleted)
+
+. 
+. xtreg interestexpense2at_11 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.2492                         Obs per group: min =         1
+       between = 0.0375                                        avg =       1.2
+       overall = 0.0022                                        max =         2
+
+                                                F(1,3)             =      1.00
+corr(u_i, Xb)  = -0.3892                        Prob > F           =    0.3919
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0018537   .0018577    -1.00   0.392    -.0077656    .0040582
+       _cons |  -.0017161   .0011416    -1.50   0.230    -.0053492    .0019169
+-------------+----------------------------------------------------------------
+     sigma_u |  .00279913
+     sigma_e |   .0022753
+         rho |   .6021399   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 3) =     1.44               Prob > F = 0.4344
+
+. 
+. xtreg interestexpense2at_11 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.4385                         Obs per group: min =         1
+       between = 0.1170                                        avg =       1.2
+       overall = 0.1441                                        max =         2
+
+                                                F(2,2)             =      0.78
+corr(u_i, Xb)  = -0.9995                        Prob > F           =    0.5615
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0492903   .0600191    -0.82   0.498    -.3075316    .2089509
+       treat |  -.0024124   .0020818    -1.16   0.366    -.0113696    .0065448
+       _cons |   .6901039   .8424054     0.82   0.499    -2.934474    4.314682
+-------------+----------------------------------------------------------------
+     sigma_u |  .07356606
+     sigma_e |  .00240981
+         rho |  .99892812   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 2) =     1.11               Prob > F = 0.5781
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 5
+(99 observations deleted)
+
+. 
+. xtreg interestexpense2at_11 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0353                         Obs per group: min =         1
+       between = 0.1406                                        avg =       1.5
+       overall = 0.0415                                        max =         2
+
+                                                F(1,7)             =      0.26
+corr(u_i, Xb)  = 0.1540                         Prob > F           =    0.6282
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0005366   .0010598    -0.51   0.628    -.0030427    .0019695
+       _cons |  -.0026009    .000362    -7.19   0.000    -.0034568    -.001745
+-------------+----------------------------------------------------------------
+     sigma_u |  .00469103
+     sigma_e |  .00133219
+         rho |  .92537094   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 7) =    13.72               Prob > F = 0.0009
+
+. 
+. xtreg interestexpense2at_11 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0375                         Obs per group: min =         1
+       between = 0.0002                                        avg =       1.5
+       overall = 0.0018                                        max =         2
+
+                                                F(2,6)             =      0.12
+corr(u_i, Xb)  = -0.6894                        Prob > F           =    0.8918
+
+------------------------------------------------------------------------------
+intereste~11 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0020699   .0179894    -0.12   0.912    -.0460884    .0419485
+       treat |  -.0004706   .0012793    -0.37   0.726     -.003601    .0026598
+       _cons |   .0310167   .2921655     0.11   0.919    -.6838864    .7459199
+-------------+----------------------------------------------------------------
+     sigma_u |  .00604949
+     sigma_e |  .00143734
+         rho |   .9465643   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 6) =    11.77               Prob > F = 0.0031
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 1
+(98 observations deleted)
+
+. 
+. xtreg commonstock2at_34 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.1134                         Obs per group: min =         1
+       between = 0.0452                                        avg =       1.7
+       overall = 0.0000                                        max =         2
+
+                                                F(1,9)             =      1.15
+corr(u_i, Xb)  = -0.0896                        Prob > F           =    0.3113
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0328026    .030577     1.07   0.311    -.0363674    .1019727
+       _cons |   .2738728   .0174958    15.65   0.000     .2342946     .313451
+-------------+----------------------------------------------------------------
+     sigma_u |  .22101698
+     sigma_e |   .0647919
+         rho |  .92086207   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 9) =    15.39               Prob > F = 0.0001
+
+. 
+. xtreg commonstock2at_34 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.1260                         Obs per group: min =         1
+       between = 0.2656                                        avg =       1.7
+       overall = 0.2394                                        max =         2
+
+                                                F(2,8)             =      0.58
+corr(u_i, Xb)  = -0.8707                        Prob > F           =    0.5834
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .1493339   .4384429     0.34   0.742    -.8617172    1.160385
+       treat |   .0248154   .0398335     0.62   0.551    -.0670408    .1166716
+       _cons |  -1.508331   5.232566    -0.29   0.780    -13.57465    10.55799
+-------------+----------------------------------------------------------------
+     sigma_u |  .36240391
+     sigma_e |  .06822927
+         rho |  .96576829   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 8) =    10.41               Prob > F = 0.0012
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 2
+(98 observations deleted)
+
+. 
+. xtreg commonstock2at_34 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.0291                         Obs per group: min =         1
+       between = 0.0441                                        avg =       1.4
+       overall = 0.0305                                        max =         2
+
+                                                F(1,6)             =      0.18
+corr(u_i, Xb)  = -0.1812                        Prob > F           =    0.6863
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0022009   .0051904     0.42   0.686    -.0104995    .0149014
+       _cons |   .2057152   .0027008    76.17   0.000     .1991067    .2123238
+-------------+----------------------------------------------------------------
+     sigma_u |  .16544465
+     sigma_e |  .00971034
+         rho |  .99656703   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 6) =   370.84               Prob > F = 0.0000
+
+. 
+. xtreg commonstock2at_34 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.6690                         Obs per group: min =         1
+       between = 0.2180                                        avg =       1.4
+       overall = 0.2645                                        max =         2
+
+                                                F(2,5)             =      5.05
+corr(u_i, Xb)  = -0.7726                        Prob > F           =    0.0630
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.1214534    .039066    -3.11   0.027    -.2218757   -.0210311
+       treat |   .0021803   .0033199     0.66   0.540    -.0063539    .0107144
+       _cons |   1.823545   .5203841     3.50   0.017     .4858548    3.161235
+-------------+----------------------------------------------------------------
+     sigma_u |  .20989569
+     sigma_e |  .00621101
+         rho |  .99912514   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =   674.60               Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 3
+(99 observations deleted)
+
+. 
+. xtreg commonstock2at_34 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.4116                         Obs per group: min =         1
+       between = 0.0042                                        avg =       1.3
+       overall = 0.0045                                        max =         2
+
+                                                F(1,5)             =      3.50
+corr(u_i, Xb)  = -0.1479                        Prob > F           =    0.1204
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .3905259   .2088273     1.87   0.120    -.1462818    .9273335
+       _cons |   .3726358   .1105052     3.37   0.020     .0885732    .6566983
+-------------+----------------------------------------------------------------
+     sigma_u |  .80046202
+     sigma_e |  .30138489
+         rho |  .87583886   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =    11.52               Prob > F = 0.0067
+
+. 
+. xtreg commonstock2at_34 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.7403                         Obs per group: min =         1
+       between = 0.3645                                        avg =       1.3
+       overall = 0.4423                                        max =         2
+
+                                                F(2,4)             =      5.70
+corr(u_i, Xb)  = -0.6436                        Prob > F           =    0.0674
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.6165646    .274004    -2.25   0.088    -1.377322    .1441926
+       treat |   .5054423   .1632964     3.10   0.036     .0520588    .9588257
+       _cons |   8.425711   3.579764     2.35   0.078    -1.513306    18.36473
+-------------+----------------------------------------------------------------
+     sigma_u |  .92470174
+     sigma_e |  .22385182
+         rho |  .94464142   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 4) =    10.85               Prob > F = 0.0164
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 4
+(98 observations deleted)
+
+. 
+. xtreg commonstock2at_34 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.2765                         Obs per group: min =         1
+       between = 0.0015                                        avg =       1.2
+       overall = 0.0010                                        max =         2
+
+                                                F(1,3)             =      1.15
+corr(u_i, Xb)  = 0.0069                         Prob > F           =    0.3628
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0281154     .02626     1.07   0.363    -.0554557    .1116866
+       _cons |   .4695998   .0161377    29.10   0.000     .4182424    .5209572
+-------------+----------------------------------------------------------------
+     sigma_u |  .52281514
+     sigma_e |  .03216398
+         rho |  .99622947   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 3) =   373.80               Prob > F = 0.0002
+
+. 
+. xtreg commonstock2at_34 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.8151                         Obs per group: min =         1
+       between = 0.4500                                        avg =       1.2
+       overall = 0.4986                                        max =         2
+
+                                                F(2,2)             =      4.41
+corr(u_i, Xb)  = -0.9641                        Prob > F           =    0.1849
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   -1.19718   .4959583    -2.41   0.137    -3.331116    .9367563
+       treat |   .0145447   .0172025     0.85   0.487    -.0594717     .088561
+       _cons |   17.27276   6.961086     2.48   0.131    -12.67838    47.22389
+-------------+----------------------------------------------------------------
+     sigma_u |  1.5176371
+     sigma_e |   .0199131
+         rho |  .99982787   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 2) =   456.97               Prob > F = 0.0022
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 5
+(99 observations deleted)
+
+. 
+. xtreg commonstock2at_34 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0371                         Obs per group: min =         1
+       between = 0.1856                                        avg =       1.5
+       overall = 0.0594                                        max =         2
+
+                                                F(1,7)             =      0.27
+corr(u_i, Xb)  = 0.2092                         Prob > F           =    0.6193
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0234832   .0451898     0.52   0.619    -.0833738    .1303402
+       _cons |   .1938145    .015434    12.56   0.000     .1573187    .2303102
+-------------+----------------------------------------------------------------
+     sigma_u |  .29998263
+     sigma_e |  .05680365
+         rho |  .96538527   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 7) =    28.99               Prob > F = 0.0001
+
+. 
+. xtreg commonstock2at_34 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.5549                         Obs per group: min =         1
+       between = 0.2859                                        avg =       1.5
+       overall = 0.2717                                        max =         2
+
+                                                F(2,6)             =      3.74
+corr(u_i, Xb)  = -0.9957                        Prob > F           =    0.0882
+
+------------------------------------------------------------------------------
+commonsto~34 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -1.379332   .5220943    -2.64   0.038    -2.656851   -.1018134
+       treat |   .0674728    .037129     1.82   0.119    -.0233786    .1583242
+       _cons |   22.59552   8.479331     2.66   0.037     1.847345     43.3437
+-------------+----------------------------------------------------------------
+     sigma_u |  2.3209836
+     sigma_e |  .04171499
+         rho |  .99967708   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 6) =    39.34               Prob > F = 0.0001
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 1
+(98 observations deleted)
+
+. 
+. xtreg retainedearnings2at_35 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.0269                         Obs per group: min =         1
+       between = 0.0294                                        avg =       1.7
+       overall = 0.0037                                        max =         2
+
+                                                F(1,9)             =      0.25
+corr(u_i, Xb)  = 0.0517                         Prob > F           =    0.6299
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0063192   .0126699     0.50   0.630     -.022342    .0349804
+       _cons |   .1622306   .0072495    22.38   0.000      .145831    .1786302
+-------------+----------------------------------------------------------------
+     sigma_u |  .31806485
+     sigma_e |  .02684711
+         rho |  .99292575   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 9) =   274.18               Prob > F = 0.0000
+
+. 
+. xtreg retainedearnings2at_35 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.0470                         Obs per group: min =         1
+       between = 0.1573                                        avg =       1.7
+       overall = 0.1788                                        max =         2
+
+                                                F(2,8)             =      0.20
+corr(u_i, Xb)  = -0.6204                        Prob > F           =    0.8248
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .0744282   .1810833     0.41   0.692    -.3431507    .4920071
+       treat |   .0023384   .0164518     0.14   0.890    -.0355996    .0402763
+       _cons |   -.726022   2.161126    -0.34   0.746    -5.709588    4.257544
+-------------+----------------------------------------------------------------
+     sigma_u |  .36847996
+     sigma_e |  .02817969
+         rho |  .99418551   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 8) =   204.02               Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 2
+(98 observations deleted)
+
+. 
+. xtreg retainedearnings2at_35 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.2636                         Obs per group: min =         1
+       between = 0.0897                                        avg =       1.4
+       overall = 0.0568                                        max =         2
+
+                                                F(1,6)             =      2.15
+corr(u_i, Xb)  = 0.1700                         Prob > F           =    0.1931
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0370876   .0253063     1.47   0.193    -.0248348    .0990101
+       _cons |   .1288705   .0131679     9.79   0.000     .0966498    .1610913
+-------------+----------------------------------------------------------------
+     sigma_u |  .25609667
+     sigma_e |  .04734384
+         rho |  .96695355   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 6) =    37.72               Prob > F = 0.0001
+
+. 
+. xtreg retainedearnings2at_35 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.4249                         Obs per group: min =         1
+       between = 0.0724                                        avg =       1.4
+       overall = 0.0148                                        max =         2
+
+                                                F(2,5)             =      1.85
+corr(u_i, Xb)  = -0.9458                        Prob > F           =    0.2508
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.3414109   .2882661    -1.18   0.289    -1.082422    .3996005
+       treat |   .0370296   .0244976     1.51   0.191    -.0259436    .1000027
+       _cons |   4.676661   3.839891     1.22   0.278    -5.194093    14.54742
+-------------+----------------------------------------------------------------
+     sigma_u |  .75145582
+     sigma_e |  .04583078
+         rho |  .99629409   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =    39.89               Prob > F = 0.0003
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 3
+(99 observations deleted)
+
+. 
+. xtreg retainedearnings2at_35 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.4831                         Obs per group: min =         1
+       between = 0.0262                                        avg =       1.3
+       overall = 0.0535                                        max =         2
+
+                                                F(1,5)             =      4.67
+corr(u_i, Xb)  = -0.0433                        Prob > F           =    0.0830
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.4925131   .2278155    -2.16   0.083    -1.078131    .0931053
+       _cons |   .1136535   .1205532     0.94   0.389    -.1962382    .4235453
+-------------+----------------------------------------------------------------
+     sigma_u |   .7670005
+     sigma_e |  .32878914
+         rho |  .84476805   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =     9.00               Prob > F = 0.0117
+
+. 
+. xtreg retainedearnings2at_35 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.7379                         Obs per group: min =         1
+       between = 0.4800                                        avg =       1.3
+       overall = 0.4908                                        max =         2
+
+                                                F(2,4)             =      5.63
+corr(u_i, Xb)  = -0.6785                        Prob > F           =    0.0687
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .6318457   .3203935     1.97   0.120    -.2577094    1.521401
+       treat |  -.6102776   .1909428    -3.20   0.033     -1.14042   -.0801354
+       _cons |  -8.139011   4.185825    -1.94   0.124    -19.76073    3.482703
+-------------+----------------------------------------------------------------
+     sigma_u |  .86978507
+     sigma_e |  .26175043
+         rho |  .91695755   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 4) =     7.58               Prob > F = 0.0315
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 4
+(98 observations deleted)
+
+. 
+. xtreg retainedearnings2at_35 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.4012                         Obs per group: min =         1
+       between = 0.0081                                        avg =       1.2
+       overall = 0.0026                                        max =         2
+
+                                                F(1,3)             =      2.01
+corr(u_i, Xb)  = -0.1263                        Prob > F           =    0.2513
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0767148   .0541117    -1.42   0.251    -.2489224    .0954929
+       _cons |  -.0186286   .0332535    -0.56   0.614    -.1244562     .087199
+-------------+----------------------------------------------------------------
+     sigma_u |  .48260531
+     sigma_e |  .06627747
+         rho |  .98148887   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 3) =    69.93               Prob > F = 0.0024
+
+. 
+. xtreg retainedearnings2at_35 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.7416                         Obs per group: min =         1
+       between = 0.2290                                        avg =       1.2
+       overall = 0.3228                                        max =         2
+
+                                                F(2,2)             =      2.87
+corr(u_i, Xb)  = -0.9909                        Prob > F           =    0.2584
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   2.155642   1.328118     1.62   0.246    -3.558787    7.870071
+       treat |  -.0522793   .0460662    -1.13   0.374    -.2504863    .1459278
+       _cons |  -30.27438   18.64096    -1.62   0.246      -110.48    49.93121
+-------------+----------------------------------------------------------------
+     sigma_u |  3.0778586
+     sigma_e |  .05332493
+         rho |  .99969992   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 2) =    67.68               Prob > F = 0.0147
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 5
+(99 observations deleted)
+
+. 
+. xtreg retainedearnings2at_35 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0474                         Obs per group: min =         1
+       between = 0.4604                                        avg =       1.5
+       overall = 0.2341                                        max =         2
+
+                                                F(1,7)             =      0.35
+corr(u_i, Xb)  = 0.4357                         Prob > F           =    0.5735
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0456064   .0772594    -0.59   0.574    -.2282959    .1370832
+       _cons |   .1443638    .026387     5.47   0.001     .0819684    .2067592
+-------------+----------------------------------------------------------------
+     sigma_u |  .28289375
+     sigma_e |  .09711515
+         rho |  .89457491   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 7) =     8.10               Prob > F = 0.0048
+
+. 
+. xtreg retainedearnings2at_35 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.6385                         Obs per group: min =         1
+       between = 0.0170                                        avg =       1.5
+       overall = 0.0021                                        max =         2
+
+                                                F(2,6)             =      5.30
+corr(u_i, Xb)  = -0.9984                        Prob > F           =    0.0472
+
+------------------------------------------------------------------------------
+retainede~35 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   2.533199   .8087497     3.13   0.020     .5542593    4.512138
+       treat |   -.126395   .0575146    -2.20   0.070    -.2671282    .0143382
+       _cons |  -40.99726    13.1349    -3.12   0.021    -73.13721   -8.857322
+-------------+----------------------------------------------------------------
+     sigma_u |  4.5057868
+     sigma_e |  .06461856
+         rho |  .99979437   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 6) =    18.95               Prob > F = 0.0008
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 1
+(98 observations deleted)
+
+. 
+. xtreg changesinaccountsrec2at_40 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.0159                         Obs per group: min =         1
+       between = 0.3275                                        avg =       1.7
+       overall = 0.0223                                        max =         2
+
+                                                F(1,9)             =      0.14
+corr(u_i, Xb)  = -0.2773                        Prob > F           =    0.7122
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0015583    .004093     0.38   0.712    -.0077007    .0108174
+       _cons |  -.0006238    .002342    -0.27   0.796    -.0059217    .0046742
+-------------+----------------------------------------------------------------
+     sigma_u |  .00892399
+     sigma_e |  .00867302
+         rho |  .51425872   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 9) =     1.33               Prob > F = 0.3388
+
+. 
+. xtreg changesinaccountsrec2at_40 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.0699                         Obs per group: min =         1
+       between = 0.0033                                        avg =       1.7
+       overall = 0.0064                                        max =         2
+
+                                                F(2,8)             =      0.30
+corr(u_i, Xb)  = -0.9887                        Prob > F           =    0.7482
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .0391994   .0574663     0.68   0.514     -.093318    .1717169
+       treat |  -.0005383   .0052209    -0.10   0.920    -.0125778    .0115012
+       _cons |  -.4684438   .6858271    -0.68   0.514    -2.049964    1.113076
+-------------+----------------------------------------------------------------
+     sigma_u |  .05196675
+     sigma_e |  .00894274
+         rho |  .97123821   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 8) =     1.28               Prob > F = 0.3741
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 2
+(98 observations deleted)
+
+. 
+. xtreg changesinaccountsrec2at_40 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.2144                         Obs per group: min =         1
+       between = 0.0395                                        avg =       1.4
+       overall = 0.0483                                        max =         2
+
+                                                F(1,6)             =      1.64
+corr(u_i, Xb)  = 0.0862                         Prob > F           =    0.2479
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0054131   .0042303    -1.28   0.248    -.0157644    .0049381
+       _cons |   .0023798   .0022012     1.08   0.321    -.0030064     .007766
+-------------+----------------------------------------------------------------
+     sigma_u |  .02104306
+     sigma_e |  .00791423
+         rho |  .87607945   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 6) =     7.62               Prob > F = 0.0095
+
+. 
+. xtreg changesinaccountsrec2at_40 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.2469                         Obs per group: min =         1
+       between = 0.1794                                        avg =       1.4
+       overall = 0.0953                                        max =         2
+
+                                                F(2,5)             =      0.82
+corr(u_i, Xb)  = -0.9298                        Prob > F           =    0.4922
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0247906   .0533911    -0.46   0.662    -.1620367    .1124556
+       treat |  -.0054174   .0045373    -1.19   0.286    -.0170809    .0062462
+       _cons |   .3326043    .711204     0.47   0.660    -1.495604    2.160812
+-------------+----------------------------------------------------------------
+     sigma_u |  .04248638
+     sigma_e |  .00848853
+         rho |  .96161455   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =     6.08               Prob > F = 0.0277
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 3
+(99 observations deleted)
+
+. 
+. xtreg changesinaccountsrec2at_40 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.4289                         Obs per group: min =         1
+       between = 0.0281                                        avg =       1.3
+       overall = 0.1366                                        max =         2
+
+                                                F(1,5)             =      3.76
+corr(u_i, Xb)  = -0.4235                        Prob > F           =    0.1104
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0166883   .0086117    -1.94   0.110    -.0388252    .0054487
+       _cons |   .0046462    .004557     1.02   0.355     -.007068    .0163605
+-------------+----------------------------------------------------------------
+     sigma_u |     .00975
+     sigma_e |  .01242856
+         rho |   .3809641   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =     0.65               Prob > F = 0.7663
+
+. 
+. xtreg changesinaccountsrec2at_40 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.6216                         Obs per group: min =         1
+       between = 0.0432                                        avg =       1.3
+       overall = 0.1223                                        max =         2
+
+                                                F(2,4)             =      3.29
+corr(u_i, Xb)  = -0.9635                        Prob > F           =    0.1432
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .0197592   .0138452     1.43   0.227    -.0186814    .0581997
+       treat |   -.020371   .0082513    -2.47   0.069    -.0432802    .0025382
+       _cons |  -.2534324   .1808831    -1.40   0.234    -.7556444    .2487796
+-------------+----------------------------------------------------------------
+     sigma_u |  .03706188
+     sigma_e |  .01131109
+         rho |  .91479279   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 4) =     0.85               Prob > F = 0.6430
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 4
+(98 observations deleted)
+
+. 
+. xtreg changesinaccountsrec2at_40 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.0742                         Obs per group: min =         1
+       between = 0.0367                                        avg =       1.2
+       overall = 0.0215                                        max =         2
+
+                                                F(1,3)             =      0.24
+corr(u_i, Xb)  = -0.3287                        Prob > F           =    0.6575
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0037419   .0076304    -0.49   0.657    -.0280253    .0205415
+       _cons |   .0040993   .0046892     0.87   0.446    -.0108237    .0190223
+-------------+----------------------------------------------------------------
+     sigma_u |  .01105563
+     sigma_e |  .00934594
+         rho |  .58321754   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 3) =     1.32               Prob > F = 0.4699
+
+. 
+. xtreg changesinaccountsrec2at_40 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.1508                         Obs per group: min =         1
+       between = 0.0225                                        avg =       1.2
+       overall = 0.0194                                        max =         2
+
+                                                F(2,2)             =      0.18
+corr(u_i, Xb)  = -0.9985                        Prob > F           =    0.8492
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .1159643    .273038     0.42   0.712    -1.058824    1.290752
+       treat |  -.0024273   .0094704    -0.26   0.822    -.0431753    .0383206
+       _cons |   -1.62353    3.83226    -0.42   0.713    -18.11241    14.86535
+-------------+----------------------------------------------------------------
+     sigma_u |  .17817464
+     sigma_e |  .01096268
+         rho |  .99622861   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 2) =     0.96               Prob > F = 0.6305
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 5
+(99 observations deleted)
+
+. 
+. xtreg changesinaccountsrec2at_40 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.2812                         Obs per group: min =         1
+       between = 0.0002                                        avg =       1.5
+       overall = 0.0026                                        max =         2
+
+                                                F(1,7)             =      2.74
+corr(u_i, Xb)  = -0.1067                        Prob > F           =    0.1419
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0031428   .0018992    -1.65   0.142    -.0076338    .0013481
+       _cons |  -.0006605   .0006487    -1.02   0.342    -.0021943    .0008734
+-------------+----------------------------------------------------------------
+     sigma_u |  .00994597
+     sigma_e |  .00238734
+         rho |  .94552393   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 7) =    18.07               Prob > F = 0.0004
+
+. 
+. xtreg changesinaccountsrec2at_40 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.2983                         Obs per group: min =         1
+       between = 0.0263                                        avg =       1.5
+       overall = 0.0208                                        max =         2
+
+                                                F(2,6)             =      1.28
+corr(u_i, Xb)  = -0.9428                        Prob > F           =    0.3455
+
+------------------------------------------------------------------------------
+changesin~40 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |    -.01219   .0318874    -0.38   0.715    -.0902155    .0658356
+       treat |  -.0027541   .0022677    -1.21   0.270    -.0083029    .0027948
+       _cons |   .1973166   .5178823     0.38   0.716    -1.069896    1.464529
+-------------+----------------------------------------------------------------
+     sigma_u |   .0252067
+     sigma_e |  .00254778
+         rho |  .98988707   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 6) =    15.54               Prob > F = 0.0014
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 1
+(98 observations deleted)
+
+. 
+. xtreg longterminvestments2at_21 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.2167                         Obs per group: min =         1
+       between = 0.0007                                        avg =       1.7
+       overall = 0.0464                                        max =         2
+
+                                                F(1,9)             =      2.49
+corr(u_i, Xb)  = -0.0414                        Prob > F           =    0.1490
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0333402   .0211263     1.58   0.149    -.0144508    .0811313
+       _cons |   .0172416   .0120882     1.43   0.188    -.0101038     .044587
+-------------+----------------------------------------------------------------
+     sigma_u |  .05793883
+     sigma_e |  .04476607
+         rho |  .62618262   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 9) =     2.91               Prob > F = 0.0571
+
+. 
+. xtreg longterminvestments2at_21 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        14
+
+R-sq:  within  = 0.5668                         Obs per group: min =         1
+       between = 0.0095                                        avg =       1.7
+       overall = 0.0370                                        max =         2
+
+                                                F(2,8)             =      5.23
+corr(u_i, Xb)  = -0.9969                        Prob > F           =    0.0352
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.5769342   .2269146    -2.54   0.035      -1.1002   -.0536681
+       treat |   .0641979   .0206157     3.11   0.014      .016658    .1117377
+       _cons |    6.90258   2.708097     2.55   0.034     .6576971    13.14746
+-------------+----------------------------------------------------------------
+     sigma_u |    .769761
+     sigma_e |  .03531183
+         rho |  .99790002   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(13, 8) =     4.92               Prob > F = 0.0151
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 2
+(98 observations deleted)
+
+. 
+. xtreg longterminvestments2at_21 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.1990                         Obs per group: min =         1
+       between = 0.0094                                        avg =       1.4
+       overall = 0.0222                                        max =         2
+
+                                                F(1,6)             =      1.49
+corr(u_i, Xb)  = 0.0287                         Prob > F           =    0.2679
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0308713   .0252838     1.22   0.268    -.0309961    .0927386
+       _cons |   .0585289   .0131562     4.45   0.004     .0263368     .090721
+-------------+----------------------------------------------------------------
+     sigma_u |  .10658576
+     sigma_e |  .04730174
+         rho |  .83545685   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 6) =     9.22               Prob > F = 0.0057
+
+. 
+. xtreg longterminvestments2at_21 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.8718                         Obs per group: min =         1
+       between = 0.0116                                        avg =       1.4
+       overall = 0.0104                                        max =         2
+
+                                                F(2,5)             =     17.00
+corr(u_i, Xb)  = -0.9960                        Prob > F           =    0.0059
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   -.667892   .1304012    -5.12   0.004    -1.003099   -.3326851
+       treat |   .0307576   .0110818     2.78   0.039     .0022708    .0592444
+       _cons |   8.955235   1.737028     5.16   0.004     4.490062    13.42041
+-------------+----------------------------------------------------------------
+     sigma_u |  1.2677559
+     sigma_e |  .02073219
+         rho |  .99973264   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =    49.14               Prob > F = 0.0002
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 3
+(99 observations deleted)
+
+. 
+. xtreg longterminvestments2at_21 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.1655                         Obs per group: min =         1
+       between = 0.0018                                        avg =       1.3
+       overall = 0.0004                                        max =         2
+
+                                                F(1,5)             =      0.99
+corr(u_i, Xb)  = -0.1467                        Prob > F           =    0.3651
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0899131   .0902941     1.00   0.365    -.1421952    .3220215
+       _cons |   .1597167   .0477809     3.34   0.020     .0368919    .2825415
+-------------+----------------------------------------------------------------
+     sigma_u |  .34409734
+     sigma_e |  .13031474
+         rho |  .87456556   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 5) =     9.45               Prob > F = 0.0105
+
+. 
+. xtreg longterminvestments2at_21 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        18
+
+R-sq:  within  = 0.9335                         Obs per group: min =         1
+       between = 0.0992                                        avg =       1.3
+       overall = 0.1407                                        max =         2
+
+                                                F(2,4)             =     28.09
+corr(u_i, Xb)  = -0.8203                        Prob > F           =    0.0044
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |    .342179   .0503287     6.80   0.002     .2024442    .4819137
+       treat |   .0261372    .029994     0.87   0.433    -.0571396     .109414
+       _cons |  -4.309552   .6575257    -6.55   0.003    -6.135136   -2.483969
+-------------+----------------------------------------------------------------
+     sigma_u |  .58551036
+     sigma_e |  .04111677
+         rho |  .99509282   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(17, 4) =    83.76               Prob > F = 0.0003
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 4
+(98 observations deleted)
+
+. 
+. xtreg longterminvestments2at_21 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.0051                         Obs per group: min =         1
+       between = 0.0031                                        avg =       1.2
+       overall = 0.0017                                        max =         2
+
+                                                F(1,3)             =      0.02
+corr(u_i, Xb)  = -0.0445                        Prob > F           =    0.9094
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0018577   .0150301     0.12   0.909    -.0459749    .0496903
+       _cons |   .1041522   .0092365    11.28   0.001     .0747574     .133547
+-------------+----------------------------------------------------------------
+     sigma_u |  .21555192
+     sigma_e |  .01840932
+         rho |  .99275872   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 3) =   261.06               Prob > F = 0.0003
+
+. 
+. xtreg longterminvestments2at_21 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        25
+Group variable: nn_sym                          Number of groups   =        21
+
+R-sq:  within  = 0.2541                         Obs per group: min =         1
+       between = 0.0347                                        avg =       1.2
+       overall = 0.0376                                        max =         2
+
+                                                F(2,2)             =      0.34
+corr(u_i, Xb)  = -0.9290                        Prob > F           =    0.7459
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.3972828    .486234    -0.82   0.500    -2.489379    1.694813
+       treat |  -.0026457   .0168652    -0.16   0.890    -.0752109    .0699194
+       _cons |   5.680259   6.824599     0.83   0.493    -23.68362    35.04414
+-------------+----------------------------------------------------------------
+     sigma_u |  .67628374
+     sigma_e |  .01952266
+         rho |  .99916736   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(20, 2) =   223.77               Prob > F = 0.0045
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\v2015\allVariableRegression.csv, clear
+(118 vars, 123 obs)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym half
+       panel variable:  nn_sym (unbalanced)
+        time variable:  half, 1 to 2
+                delta:  1 unit
+
+. 
+. xtile qtile = turnover, nq(5)
+
+. 
+. drop if qtile != 5
+(99 observations deleted)
+
+. 
+. xtreg longterminvestments2at_21 treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0096                         Obs per group: min =         1
+       between = 0.0000                                        avg =       1.5
+       overall = 0.0037                                        max =         2
+
+                                                F(1,7)             =      0.07
+corr(u_i, Xb)  = 0.0604                         Prob > F           =    0.8022
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0004733    .001819     0.26   0.802     -.003828    .0047747
+       _cons |   .1565626   .0006213   252.00   0.000     .1550935    .1580316
+-------------+----------------------------------------------------------------
+     sigma_u |   .2191701
+     sigma_e |  .00228654
+         rho |  .99989117   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 7) = 17174.34               Prob > F = 0.0000
+
+. 
+. xtreg longterminvestments2at_21 log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        24
+Group variable: nn_sym                          Number of groups   =        16
+
+R-sq:  within  = 0.0437                         Obs per group: min =         1
+       between = 0.2268                                        avg =       1.5
+       overall = 0.2056                                        max =         2
+
+                                                F(2,6)             =      0.14
+corr(u_i, Xb)  = -0.5302                        Prob > F           =    0.8745
+
+------------------------------------------------------------------------------
+longtermi~21 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0140571   .0303733    -0.46   0.660    -.0883779    .0602638
+       treat |   .0009216     .00216     0.43   0.684    -.0043637     .006207
+       _cons |    .384863    .493293     0.78   0.465    -.8221815    1.591908
+-------------+----------------------------------------------------------------
+     sigma_u |   .2322185
+     sigma_e |  .00242681
+         rho |   .9998908   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(15, 6) = 12023.96               Prob > F = 0.0000
+
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Evanger\Documents\research\NRE5110FinalProject\v2015\regQuant_turnover.log
+  log type:  text
+ closed on:  19 Jan 2015, 11:22:40
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
