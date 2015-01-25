@@ -22,6 +22,8 @@ var DATES = [
 var TAQ_X_COL = 3;
 var TAQ_T_COL = 0;
 var REPORT_X_COL = 0;
+var KEY_COLS = [32, 38, 46, 45];
+
 var items = [];
 var records = [];
 
@@ -76,17 +78,43 @@ var loadReport = function() {
 
 var outputPanel = function() {
   // Data Screen
+  console.log('Data Screen');
   var validArr = [];
   for(var i = 0; i < records.length; i++) {
     if(records[i].length < 20) {
-      validArr[i] = 0;
+      validArr[i] = false;
     } else {
-      validArr[i] = 1;
+      validArr[i] = true;
     }
   }
   // TODO
   // Near Quarter Drop if same
-  
+  for(var c = 0; c < KEY_COLS.length; c++) {
+    var curColumn = KEY_COLS[c];
+    console.log('Remove duplicate: ' + items[curColumn]);
+  }
+  for(var i = 0; i < records.length; i++) {
+    var firstRecord = records[i];
+    if(firstRecord[TAQ_T_COL] % 2 == 1) continue;
+    for(var j = 0; j < records.length; j++) {
+      secondRecord = records[j];
+      if(firstRecord[TAQ_X_COL] != secondRecord[TAQ_X_COL]) continue;
+      if(parseInt(secondRecord[TAQ_T_COL]) != parseInt(firstRecord[TAQ_T_COL]) + 1) continue;
+      var flag = false;
+      for(var c = 0; c < KEY_COLS.length; c++) {
+        var curColumn = KEY_COLS[c];
+        if(firstRecord[curColumn] != secondRecord[curColumn]) {
+          flag = true;
+          break;
+        }
+      }
+      if(flag == false) {
+        console.log('Drop: #' + i + ' ' + firstRecord[TAQ_X_COL] + ' ' + firstRecord[TAQ_T_COL]);
+        validArr[i] = false;
+      }
+      break;
+    }
+  }
   console.log('Preparing Output');
   var outStr = [];
   outStr.push(items.join('\t'));
