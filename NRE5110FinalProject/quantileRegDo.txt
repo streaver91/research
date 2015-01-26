@@ -1,0 +1,146 @@
+log using D:\Evanger\Documents\research\NRE5110FinalProject\quantReg2_totalassets.log
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen retainedearnings2at = retainedearnings / totalassets
+drop if qtile != 1
+xtreg retainedearnings2at treat, fe
+xtreg retainedearnings2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen retainedearnings2at = retainedearnings / totalassets
+drop if qtile != 2
+xtreg retainedearnings2at treat, fe
+xtreg retainedearnings2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen retainedearnings2at = retainedearnings / totalassets
+drop if qtile != 3
+xtreg retainedearnings2at treat, fe
+xtreg retainedearnings2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen retainedearnings2at = retainedearnings / totalassets
+drop if qtile != 4
+xtreg retainedearnings2at treat, fe
+xtreg retainedearnings2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen commonstock2at = commonstock / totalassets
+drop if qtile != 1
+xtreg commonstock2at treat, fe
+xtreg commonstock2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen commonstock2at = commonstock / totalassets
+drop if qtile != 2
+xtreg commonstock2at treat, fe
+xtreg commonstock2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen commonstock2at = commonstock / totalassets
+drop if qtile != 3
+xtreg commonstock2at treat, fe
+xtreg commonstock2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen commonstock2at = commonstock / totalassets
+drop if qtile != 4
+xtreg commonstock2at treat, fe
+xtreg commonstock2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen longterminvestments2at = longterminvestments / totalassets
+drop if qtile != 1
+xtreg longterminvestments2at treat, fe
+xtreg longterminvestments2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen longterminvestments2at = longterminvestments / totalassets
+drop if qtile != 2
+xtreg longterminvestments2at treat, fe
+xtreg longterminvestments2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen longterminvestments2at = longterminvestments / totalassets
+drop if qtile != 3
+xtreg longterminvestments2at treat, fe
+xtreg longterminvestments2at log_at treat, fe
+import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+drop if totalassets <= 0
+sum totalassets , detail
+drop if totalassets <= r(p5) | totalassets >= r(p95)
+gen log_at = log(totalassets)
+encode symbol, gen(nn_sym)
+xtset nn_sym quarter
+xtile qtile = totalassets, nq(4)
+gen longterminvestments2at = longterminvestments / totalassets
+drop if qtile != 4
+xtreg longterminvestments2at treat, fe
+xtreg longterminvestments2at log_at treat, fe
+log close

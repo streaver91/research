@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var PANEL_FILE = 'panel.txt';
+var PANEL_FILE = 'panelTrim.csv';
 var OUTCOME_FILE = 'outcome.txt';
 var PANEL_LTINV_COL = 32;
 var PANEL_SYMBOL_COL = 3;
@@ -42,7 +42,7 @@ var calcOutput = function() {
       if(matchQuarter > lastQuarter) {
         lastQuarter = matchQuarter;
         var treatLevel = parseFloat(treatRecord[PANEL_LTINV_COL]) / parseFloat(treatRecord[PANEL_AT_COL]);
-        var matchLevel = parseFloat(matchRecord[PANEL_LTINV_COL]) / parseFloat(matchRecord[PANEL_AT_COL]);
+        var matchLevel = parseFloat(matchRecord[PANEL_LTINV_COL]) / parseFloat(treatRecord[PANEL_AT_COL]);
         var curOutcome = treatLevel - matchLevel;
         if(isNaN(curOutcome)) {
           console.log('ERROR: ' + [treatRecord[PANEL_AT_COL], matchRecord[PANEL_AT_COL]].join('\t'));

@@ -1,0 +1,1285 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\Evanger\Documents\research\NRE5110FinalProject\quantReg2_turnover.log
+  log type:  text
+ opened on:  25 Jan 2015, 21:44:24
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen retainedearnings2at = retainedearnings / totalassets
+
+. 
+. drop if qtile != 1
+(126 observations deleted)
+
+. 
+. xtreg retainedearnings2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0050                         Obs per group: min =         1
+       between = 0.1278                                        avg =       1.7
+       overall = 0.0490                                        max =         3
+
+                                                F(1,16)            =      0.08
+corr(u_i, Xb)  = 0.2036                         Prob > F           =    0.7796
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0083224   .0292464     0.28   0.780    -.0536772     .070322
+       _cons |   .1018223   .0124951     8.15   0.000     .0753338    .1283108
+-------------+----------------------------------------------------------------
+     sigma_u |  .15485607
+     sigma_e |  .06204102
+         rho |  .86169034   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 16) =     7.73              Prob > F = 0.0001
+
+. 
+. xtreg retainedearnings2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0265                         Obs per group: min =         1
+       between = 0.0021                                        avg =       1.7
+       overall = 0.0101                                        max =         3
+
+                                                F(2,15)            =      0.20
+corr(u_i, Xb)  = -0.3910                        Prob > F           =    0.8173
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0446337   .0775338    -0.58   0.573    -.2098931    .1206257
+       treat |   .0145372    .031768     0.46   0.654    -.0531746    .0822491
+       _cons |   .7038997   1.045955     0.67   0.511    -1.525501      2.9333
+-------------+----------------------------------------------------------------
+     sigma_u |  .17038903
+     sigma_e |  .06337939
+         rho |  .87845616   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =     7.38              Prob > F = 0.0001
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen retainedearnings2at = retainedearnings / totalassets
+
+. 
+. drop if qtile != 2
+(127 observations deleted)
+
+. 
+. xtreg retainedearnings2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0002                         Obs per group: min =         1
+       between = 0.0242                                        avg =       1.6
+       overall = 0.0053                                        max =         3
+
+                                                F(1,15)            =      0.00
+corr(u_i, Xb)  = 0.0717                         Prob > F           =    0.9621
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0004796   .0099339    -0.05   0.962    -.0216532     .020694
+       _cons |   .1766459   .0041128    42.95   0.000     .1678797    .1854121
+-------------+----------------------------------------------------------------
+     sigma_u |  .22640692
+     sigma_e |  .01905464
+         rho |  .99296674   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =   231.52              Prob > F = 0.0000
+
+. 
+. xtreg retainedearnings2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.8357                         Obs per group: min =         1
+       between = 0.0344                                        avg =       1.6
+       overall = 0.0371                                        max =         3
+
+                                                F(2,14)            =     35.61
+corr(u_i, Xb)  = -0.9124                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   -.273776   .0324437    -8.44   0.000    -.3433608   -.2041912
+       treat |   .0106893   .0043731     2.44   0.028     .0013099    .0200686
+       _cons |   4.005378   .4537254     8.83   0.000     3.032233    4.978522
+-------------+----------------------------------------------------------------
+     sigma_u |  .55984194
+     sigma_e |  .00799477
+         rho |  .99979611   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 14) =  1274.46              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen retainedearnings2at = retainedearnings / totalassets
+
+. 
+. drop if qtile != 3
+(127 observations deleted)
+
+. 
+. xtreg retainedearnings2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.0050                         Obs per group: min =         1
+       between = 0.0237                                        avg =       1.8
+       overall = 0.0018                                        max =         4
+
+                                                F(1,17)            =      0.08
+corr(u_i, Xb)  = 0.0284                         Prob > F           =    0.7745
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0078848   .0270897     0.29   0.775    -.0492694     .065039
+       _cons |   .1096235   .0108411    10.11   0.000     .0867508    .1324961
+-------------+----------------------------------------------------------------
+     sigma_u |  .24352218
+     sigma_e |  .05556673
+         rho |  .95051087   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 17) =    30.67              Prob > F = 0.0000
+
+. 
+. xtreg retainedearnings2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.2240                         Obs per group: min =         1
+       between = 0.0379                                        avg =       1.8
+       overall = 0.0224                                        max =         4
+
+                                                F(2,16)            =      2.31
+corr(u_i, Xb)  = -0.8137                        Prob > F           =    0.1315
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |    -.33813   .1591109    -2.13   0.050    -.6754299     -.00083
+       treat |   .0039899   .0247273     0.16   0.874    -.0484296    .0564094
+       _cons |   4.819542   2.216327     2.17   0.045     .1211384    9.517945
+-------------+----------------------------------------------------------------
+     sigma_u |  .44046332
+     sigma_e |  .05058147
+         rho |  .98698412   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 16) =    36.42              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen retainedearnings2at = retainedearnings / totalassets
+
+. 
+. drop if qtile != 4
+(127 observations deleted)
+
+. 
+. xtreg retainedearnings2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.0042                         Obs per group: min =         1
+       between = 0.0495                                        avg =       2.1
+       overall = 0.0301                                        max =         4
+
+                                                F(1,21)            =      0.09
+corr(u_i, Xb)  = 0.1656                         Prob > F           =    0.7683
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0137289   .0460073    -0.30   0.768    -.1094064    .0819486
+       _cons |   .0118364   .0221162     0.54   0.598    -.0341567    .0578295
+-------------+----------------------------------------------------------------
+     sigma_u |  .73228121
+     sigma_e |  .11442391
+         rho |  .97616576   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 21) =    67.64              Prob > F = 0.0000
+
+. 
+. xtreg retainedearnings2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.1567                         Obs per group: min =         1
+       between = 0.1885                                        avg =       2.1
+       overall = 0.1124                                        max =         4
+
+                                                F(2,20)            =      1.86
+corr(u_i, Xb)  = -0.7486                        Prob > F           =    0.1819
+
+------------------------------------------------------------------------------
+retainedea~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .5025374   .2642876     1.90   0.072    -.0487568    1.053832
+       treat |  -.0519529   .0478156    -1.09   0.290    -.1516946    .0477888
+       _cons |  -6.683002    3.52092    -1.90   0.072    -14.02751    .6615074
+-------------+----------------------------------------------------------------
+     sigma_u |  .88299916
+     sigma_e |  .10790131
+         rho |  .98528719   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 20) =    68.74              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen commonstock2at = commonstock / totalassets
+
+. 
+. drop if qtile != 1
+(126 observations deleted)
+
+. 
+. xtreg commonstock2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0190                         Obs per group: min =         1
+       between = 0.0135                                        avg =       1.7
+       overall = 0.0331                                        max =         3
+
+                                                F(1,16)            =      0.31
+corr(u_i, Xb)  = 0.1434                         Prob > F           =    0.5854
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   -.015571   .0279677    -0.56   0.585    -.0748598    .0437178
+       _cons |   .2319318   .0119488    19.41   0.000     .2066014    .2572621
+-------------+----------------------------------------------------------------
+     sigma_u |  .15912095
+     sigma_e |  .05932839
+         rho |  .87794942   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 16) =    11.80              Prob > F = 0.0000
+
+. 
+. xtreg commonstock2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.1394                         Obs per group: min =         1
+       between = 0.1849                                        avg =       1.7
+       overall = 0.1718                                        max =         3
+
+                                                F(2,15)            =      1.21
+corr(u_i, Xb)  = -0.5475                        Prob > F           =    0.3243
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.1017061   .0702079    -1.45   0.168    -.2513506    .0479385
+       treat |  -.0014094   .0287663    -0.05   0.962    -.0627234    .0599045
+       _cons |   1.603876   .9471257     1.69   0.111    -.4148748    3.622626
+-------------+----------------------------------------------------------------
+     sigma_u |  .17772463
+     sigma_e |  .05739086
+         rho |  .90556956   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =    10.29              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen commonstock2at = commonstock / totalassets
+
+. 
+. drop if qtile != 2
+(127 observations deleted)
+
+. 
+. xtreg commonstock2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.3693                         Obs per group: min =         1
+       between = 0.0203                                        avg =       1.6
+       overall = 0.0321                                        max =         3
+
+                                                F(1,15)            =      8.78
+corr(u_i, Xb)  = 0.0616                         Prob > F           =    0.0097
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0517461   .0174589     2.96   0.010     .0145334    .0889589
+       _cons |   .2041589   .0072282    28.24   0.000     .1887523    .2195655
+-------------+----------------------------------------------------------------
+     sigma_u |  .21890787
+     sigma_e |  .03348862
+         rho |  .97713216   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =    55.20              Prob > F = 0.0000
+
+. 
+. xtreg commonstock2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.4940                         Obs per group: min =         1
+       between = 0.3131                                        avg =       1.6
+       overall = 0.2967                                        max =         3
+
+                                                F(2,14)            =      6.83
+corr(u_i, Xb)  = -0.9476                        Prob > F           =    0.0085
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   .2339695   .1260084     1.86   0.085    -.0362916    .5042306
+       treat |   .0422012   .0169846     2.48   0.026     .0057728    .0786297
+       _cons |  -3.067883   1.762228    -1.74   0.104    -6.847487    .7117205
+-------------+----------------------------------------------------------------
+     sigma_u |  .55464911
+     sigma_e |  .03105094
+         rho |  .99687569   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 14) =    45.99              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen commonstock2at = commonstock / totalassets
+
+. 
+. drop if qtile != 3
+(127 observations deleted)
+
+. 
+. xtreg commonstock2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.0723                         Obs per group: min =         1
+       between = 0.0286                                        avg =       1.8
+       overall = 0.0053                                        max =         4
+
+                                                F(1,17)            =      1.32
+corr(u_i, Xb)  = 0.0481                         Prob > F           =    0.2658
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |    .011498   .0099922     1.15   0.266    -.0095836    .0325797
+       _cons |   .2936448   .0039988    73.43   0.000     .2852081    .3020815
+-------------+----------------------------------------------------------------
+     sigma_u |  .21974991
+     sigma_e |  .02049609
+         rho |  .99137572   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 17) =   162.48              Prob > F = 0.0000
+
+. 
+. xtreg commonstock2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.8873                         Obs per group: min =         1
+       between = 0.0232                                        avg =       1.8
+       overall = 0.0019                                        max =         4
+
+                                                F(2,16)            =     62.96
+corr(u_i, Xb)  = -0.7906                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.2491544   .0231673   -10.75   0.000    -.2982669   -.2000418
+       treat |   .0086281   .0036004     2.40   0.029     .0009955    .0162606
+       _cons |   3.764194   .3227083    11.66   0.000     3.080083    4.448305
+-------------+----------------------------------------------------------------
+     sigma_u |  .35041234
+     sigma_e |  .00736491
+         rho |  .99955844   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 16) =  1262.46              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen commonstock2at = commonstock / totalassets
+
+. 
+. drop if qtile != 4
+(127 observations deleted)
+
+. 
+. xtreg commonstock2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.0129                         Obs per group: min =         1
+       between = 0.0054                                        avg =       2.1
+       overall = 0.0090                                        max =         4
+
+                                                F(1,21)            =      0.27
+corr(u_i, Xb)  = -0.1077                        Prob > F           =    0.6058
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0181182   .0345847    -0.52   0.606     -.090041    .0538046
+       _cons |   .4910028   .0166252    29.53   0.000     .4564288    .5255768
+-------------+----------------------------------------------------------------
+     sigma_u |  .75142045
+     sigma_e |  .08601488
+         rho |  .98706616   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 21) =   120.65              Prob > F = 0.0000
+
+. 
+. xtreg commonstock2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.1144                         Obs per group: min =         1
+       between = 0.3514                                        avg =       2.1
+       overall = 0.2713                                        max =         4
+
+                                                F(2,20)            =      1.29
+corr(u_i, Xb)  = -0.3732                        Prob > F           =    0.2969
+
+------------------------------------------------------------------------------
+commonstoc~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |   -.309522   .2044877    -1.51   0.146    -.7360759     .117032
+       treat |   .0054246   .0369965     0.15   0.885    -.0717487    .0825979
+       _cons |   4.614476   2.724248     1.69   0.106    -1.068205    10.29716
+-------------+----------------------------------------------------------------
+     sigma_u |  .61482726
+     sigma_e |  .08348669
+         rho |  .98189521   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 20) =    93.97              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen longterminvestments2at = longterminvestments / totalassets
+
+. 
+. drop if qtile != 1
+(126 observations deleted)
+
+. 
+. xtreg longterminvestments2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.3378                         Obs per group: min =         1
+       between = 0.0070                                        avg =       1.7
+       overall = 0.0259                                        max =         3
+
+                                                F(1,16)            =      8.16
+corr(u_i, Xb)  = -0.0056                        Prob > F           =    0.0114
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .1012279   .0354353     2.86   0.011     .0261085    .1763473
+       _cons |   .1097353   .0151392     7.25   0.000     .0776415     .141829
+-------------+----------------------------------------------------------------
+     sigma_u |  .27490397
+     sigma_e |  .07516954
+         rho |  .93043246   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 16) =    21.46              Prob > F = 0.0000
+
+. 
+. xtreg longterminvestments2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        43
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.6625                         Obs per group: min =         1
+       between = 0.2359                                        avg =       1.7
+       overall = 0.2759                                        max =         3
+
+                                                F(2,15)            =     14.72
+corr(u_i, Xb)  = -0.7559                        Prob > F           =    0.0003
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |     .25759   .0677962     3.80   0.002     .1130857    .4020943
+       treat |    .065361   .0277782     2.35   0.033     .0061532    .1245689
+       _cons |  -3.364974   .9145921    -3.68   0.002    -5.314381   -1.415567
+-------------+----------------------------------------------------------------
+     sigma_u |  .38622134
+     sigma_e |  .05541949
+         rho |  .97982557   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =    28.83              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen longterminvestments2at = longterminvestments / totalassets
+
+. 
+. drop if qtile != 2
+(127 observations deleted)
+
+. 
+. xtreg longterminvestments2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0421                         Obs per group: min =         1
+       between = 0.0789                                        avg =       1.6
+       overall = 0.0443                                        max =         3
+
+                                                F(1,15)            =      0.66
+corr(u_i, Xb)  = -0.2263                        Prob > F           =    0.4296
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |    .009746   .0120047     0.81   0.430    -.0158415    .0353335
+       _cons |   .1328908   .0049701    26.74   0.000     .1222972    .1434844
+-------------+----------------------------------------------------------------
+     sigma_u |  .27663554
+     sigma_e |  .02302678
+         rho |    .993119   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 15) =   220.98              Prob > F = 0.0000
+
+. 
+. xtreg longterminvestments2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        26
+
+R-sq:  within  = 0.0941                         Obs per group: min =         1
+       between = 0.1409                                        avg =       1.6
+       overall = 0.1082                                        max =         3
+
+                                                F(2,14)            =      0.73
+corr(u_i, Xb)  = -0.6662                        Prob > F           =    0.5009
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0842909   .0940652    -0.90   0.385    -.2860406    .1174589
+       treat |   .0131847    .012679     1.04   0.316    -.0140091    .0403785
+       _cons |    1.31169   1.315502     1.00   0.336    -1.509781    4.133162
+-------------+----------------------------------------------------------------
+     sigma_u |  .35697947
+     sigma_e |  .02317951
+         rho |  .99580149   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(25, 14) =   199.38              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen longterminvestments2at = longterminvestments / totalassets
+
+. 
+. drop if qtile != 3
+(127 observations deleted)
+
+. 
+. xtreg longterminvestments2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.0339                         Obs per group: min =         1
+       between = 0.0028                                        avg =       1.8
+       overall = 0.0014                                        max =         4
+
+                                                F(1,17)            =      0.60
+corr(u_i, Xb)  = 0.0023                         Prob > F           =    0.4504
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |   .0217986   .0282166     0.77   0.450    -.0377333    .0813304
+       _cons |   .1139017   .0112921    10.09   0.000     .0900775    .1377258
+-------------+----------------------------------------------------------------
+     sigma_u |   .2391994
+     sigma_e |  .05787836
+         rho |  .94469026   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 17) =    37.83              Prob > F = 0.0000
+
+. 
+. xtreg longterminvestments2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        24
+
+R-sq:  within  = 0.6716                         Obs per group: min =         1
+       between = 0.0236                                        avg =       1.8
+       overall = 0.0146                                        max =         4
+
+                                                F(2,16)            =     16.36
+corr(u_i, Xb)  = -0.9298                        Prob > F           =    0.0001
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.6099007   .1094093    -5.57   0.000    -.8418382   -.3779633
+       treat |   .0147732   .0170032     0.87   0.398     -.021272    .0508184
+       _cons |     8.6094   1.524012     5.65   0.000     5.378639    11.84016
+-------------+----------------------------------------------------------------
+     sigma_u |  .82492335
+     sigma_e |  .03478132
+         rho |  .99822543   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(23, 16) =   104.24              Prob > F = 0.0000
+
+. 
+. import delimited D:\Evanger\Documents\research\NRE5110FinalProject\panel.txt, clear
+(66 vars, 202 obs)
+
+. 
+. drop if totalassets <= 0
+(11 observations deleted)
+
+. 
+. sum totalassets , detail
+
+                        Total Assets
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        15000          12000
+ 5%        25000          15000
+10%        60000          15000       Obs                 191
+25%       233000          16000       Sum of Wgt.         191
+
+50%       789000                      Mean           1.31e+07
+                        Largest       Std. Dev.      4.60e+07
+75%      3405000       2.41e+08
+90%     1.09e+07       2.46e+08       Variance       2.11e+15
+95%     9.71e+07       2.50e+08       Skewness       4.290697
+99%     2.50e+08       2.53e+08       Kurtosis       20.65765
+
+. 
+. drop if totalassets <= r(p5) | totalassets >= r(p95)
+(22 observations deleted)
+
+. 
+. gen log_at = log(totalassets)
+
+. 
+. encode symbol, gen(nn_sym)
+
+. 
+. xtset nn_sym quarter
+       panel variable:  nn_sym (unbalanced)
+        time variable:  quarter, 0 to 3, but with gaps
+                delta:  1 unit
+
+. 
+. gen turnover2at = turnover / totalassets
+
+. 
+. xtile qtile = turnover2at , nq(4)
+
+. 
+. gen longterminvestments2at = longterminvestments / totalassets
+
+. 
+. drop if qtile != 4
+(127 observations deleted)
+
+. 
+. xtreg longterminvestments2at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.0075                         Obs per group: min =         1
+       between = 0.0296                                        avg =       2.1
+       overall = 0.0000                                        max =         4
+
+                                                F(1,21)            =      0.16
+corr(u_i, Xb)  = -0.0010                        Prob > F           =    0.6939
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       treat |  -.0007155   .0017933    -0.40   0.694    -.0044448    .0030138
+       _cons |   .0363773    .000862    42.20   0.000     .0345846      .03817
+-------------+----------------------------------------------------------------
+     sigma_u |  .04913346
+     sigma_e |     .00446
+         rho |  .99182758   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 21) =   336.05              Prob > F = 0.0000
+
+. 
+. xtreg longterminvestments2at log_at treat, fe
+
+Fixed-effects (within) regression               Number of obs      =        42
+Group variable: nn_sym                          Number of groups   =        20
+
+R-sq:  within  = 0.1821                         Obs per group: min =         1
+       between = 0.0305                                        avg =       2.1
+       overall = 0.0296                                        max =         4
+
+                                                F(2,20)            =      2.23
+corr(u_i, Xb)  = -0.6554                        Prob > F           =    0.1340
+
+------------------------------------------------------------------------------
+longtermin~t |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      log_at |  -.0209938   .0101619    -2.07   0.052    -.0421912    .0002037
+       treat |   .0008813   .0018385     0.48   0.637    -.0029538    .0047164
+       _cons |   .3160576   .1353806     2.33   0.030     .0336587    .5984566
+-------------+----------------------------------------------------------------
+     sigma_u |  .06692211
+     sigma_e |  .00414884
+         rho |  .99617132   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(19, 20) =   376.77              Prob > F = 0.0000
+
+. 
+. log close
+      name:  <unnamed>
+       log:  D:\Evanger\Documents\research\NRE5110FinalProject\quantReg2_turnover.log
+  log type:  text
+ closed on:  25 Jan 2015, 21:44:27
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
