@@ -1,0 +1,11 @@
+list.txt
+isin, name, group
+
+taq.txt
+isin, mic, date, open, high, low, close, shares, trades, volume, currency
+
+liqRatio.txt
+isin, month, liqRatio, treat
+
+effectiveTick.txt
+isin, month, effectiveTick, treat, avgPrice

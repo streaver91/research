@@ -1,0 +1,197 @@
+import delimited D:\Evanger\Documents\research\TickSize\effectiveTick.txt, clear 
+encode v1, gen(n_v1)
+xtset n_v1 v2
+xtreg v3 v4, fe
+sum v3, detail
+drop if v3 < r(p1) | v3 > r(p99)
+xtreg v3 v4, fe
+gen log_v3 = log(v3)
+xtreg log_v3 v4, fe
+sum v3, detail
+drop if v3 < r(p5) | v3 > r(p95)
+xtreg v3 v4, fe
+xtreg log_v3 v4, fe
+
+
+. import delimited D:\Evanger\Documents\research\TickSize\effectiveTick.txt, clear 
+(5 vars, 5142 obs)
+
+. encode v1, gen(n_v1)
+
+. 
+. xtset n_v1 v2
+       panel variable:  n_v1 (unbalanced)
+        time variable:  v2, 24121 to 24180, but with gaps
+                delta:  1 unit
+
+. 
+. xtreg v3 v4, fe
+
+Fixed-effects (within) regression               Number of obs      =      5142
+Group variable: n_v1                            Number of groups   =        93
+
+R-sq:  within  = 0.0042                         Obs per group: min =        11
+       between = 0.0016                                        avg =      55.3
+       overall = 0.0007                                        max =        60
+
+                                                F(1,5048)          =     21.45
+corr(u_i, Xb)  = -0.0510                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+          v3 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          v4 |  -.0158531   .0034232    -4.63   0.000    -.0225641   -.0091421
+       _cons |   .0400547    .001142    35.07   0.000     .0378158    .0422936
+-------------+----------------------------------------------------------------
+     sigma_u |   .0519317
+     sigma_e |   .0765596
+         rho |  .31512212   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(92, 5048) =    25.41            Prob > F = 0.0000
+
+. 
+. sum v3, detail
+
+                             v3
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .0000413       .0000133
+ 5%     .0002427       .0000148
+10%     .0015711        .000015       Obs                5142
+25%     .0047903       .0000156       Sum of Wgt.        5142
+
+50%     .0108913                      Mean           .0381771
+                        Largest       Std. Dev.      .0917975
+75%     .0304199       1.044407
+90%     .0872738       1.045338       Variance       .0084268
+95%     .1626041       1.058917       Skewness       6.247608
+99%     .4623281        1.11822       Kurtosis       54.08938
+
+. 
+. drop if v3 < r(p1) | v3 > r(p99)
+(102 observations deleted)
+
+. 
+. xtreg v3 v4, fe
+
+Fixed-effects (within) regression               Number of obs      =      5040
+Group variable: n_v1                            Number of groups   =        93
+
+R-sq:  within  = 0.0049                         Obs per group: min =        11
+       between = 0.0018                                        avg =      54.2
+       overall = 0.0006                                        max =        60
+
+                                                F(1,4946)          =     24.43
+corr(u_i, Xb)  = -0.0537                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+          v3 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          v4 |  -.0101087    .002045    -4.94   0.000    -.0141179   -.0060995
+       _cons |   .0328471   .0006874    47.79   0.000     .0314995    .0341946
+-------------+----------------------------------------------------------------
+     sigma_u |  .03612212
+     sigma_e |   .0455798
+         rho |   .3857723   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(92, 4946) =    33.36            Prob > F = 0.0000
+
+. 
+. gen log_v3 = log(v3)
+
+. 
+. xtreg log_v3 v4, fe
+
+Fixed-effects (within) regression               Number of obs      =      5040
+Group variable: n_v1                            Number of groups   =        93
+
+R-sq:  within  = 0.0034                         Obs per group: min =        11
+       between = 0.0250                                        avg =      54.2
+       overall = 0.0005                                        max =        60
+
+                                                F(1,4946)          =     16.87
+corr(u_i, Xb)  = -0.0712                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+      log_v3 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          v4 |  -.1826265   .0444625    -4.11   0.000    -.2697927   -.0954603
+       _cons |  -4.518291   .0149444  -302.34   0.000    -4.547588   -4.488993
+-------------+----------------------------------------------------------------
+     sigma_u |   1.354661
+     sigma_e |   .9909745
+         rho |  .65140831   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(92, 4946) =    99.07            Prob > F = 0.0000
+
+. 
+. sum v3, detail
+
+                             v3
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%     .0000625       .0000413
+ 5%     .0004221       .0000418
+10%     .0017928        .000043       Obs                5040
+25%     .0048791       .0000433       Sum of Wgt.        5040
+
+50%     .0108913                      Mean           .0316336
+                        Largest       Std. Dev.      .0575009
+75%     .0295362       .4548615
+90%     .0804165        .457734       Variance       .0033064
+95%     .1381639       .4621255       Skewness       3.745669
+99%     .3175568       .4623281       Kurtosis       19.66889
+
+. 
+. drop if v3 < r(p5) | v3 > r(p95)
+(504 observations deleted)
+
+. 
+. xtreg v3 v4, fe
+
+Fixed-effects (within) regression               Number of obs      =      4536
+Group variable: n_v1                            Number of groups   =        93
+
+R-sq:  within  = 0.0084                         Obs per group: min =         6
+       between = 0.0087                                        avg =      48.8
+       overall = 0.0003                                        max =        60
+
+                                                F(1,4442)          =     37.48
+corr(u_i, Xb)  = -0.0757                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+          v3 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          v4 |   -.005519   .0009014    -6.12   0.000    -.0072863   -.0037517
+       _cons |   .0224679   .0003107    72.31   0.000     .0218587     .023077
+-------------+----------------------------------------------------------------
+     sigma_u |  .01967588
+     sigma_e |  .01946022
+         rho |  .50551046   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(92, 4442) =    44.13            Prob > F = 0.0000
+
+. 
+. xtreg log_v3 v4, fe
+
+Fixed-effects (within) regression               Number of obs      =      4536
+Group variable: n_v1                            Number of groups   =        93
+
+R-sq:  within  = 0.0090                         Obs per group: min =         6
+       between = 0.0168                                        avg =      48.8
+       overall = 0.0001                                        max =        60
+
+                                                F(1,4442)          =     40.16
+corr(u_i, Xb)  = -0.0810                        Prob > F           =    0.0000
+
+------------------------------------------------------------------------------
+      log_v3 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          v4 |  -.2348554   .0370595    -6.34   0.000    -.3075105   -.1622003
+       _cons |  -4.430394    .012774  -346.83   0.000    -4.455438   -4.405351
+-------------+----------------------------------------------------------------
+     sigma_u |  .94797736
+     sigma_e |  .80003709
+         rho |  .58403142   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0:     F(92, 4442) =    56.78            Prob > F = 0.0000
