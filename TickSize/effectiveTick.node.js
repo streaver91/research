@@ -10,7 +10,7 @@ var COL_OPEN = 3;
 var COL_CLOSE = 6;
 var COL_SHARES = 7;
 var COL_VOL = 9;
-var DAYCOUNT_THRESHOLD = 0;
+var DAYCOUNT_THRESHOLD = 1;
 
 var output = [];
 var spreads = [1.0, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001];
@@ -26,6 +26,7 @@ fs.readFile(TAQ_FILE, 'utf-8', function(err, res) {
   var curVolSum = 0;
   var curSharesSum = 0;
   var curDayCount = 0;
+  var curDate;
   
   var reset = function() {
     for(var i = 0; i < spreads.length; i++) {
@@ -41,6 +42,7 @@ fs.readFile(TAQ_FILE, 'utf-8', function(err, res) {
   
   var outputCurFirmMonth = function() {
     if(curVolSum == 0) return;
+    if(curSharesSum == 0) return;
     if(curDayCount < DAYCOUNT_THRESHOLD) return;
     if(curVolSum / curSharesSum > 100) return;
     var len = spreads.length;
@@ -72,7 +74,8 @@ fs.readFile(TAQ_FILE, 'utf-8', function(err, res) {
       effectiveTick += gamma[i] * spreads[i];
     }
     effectiveTick = effectiveTick / (curVolSum / curSharesSum);
-    var treat = (curSharesSum * TREAT_CUTOFF > curVolSum && dateI > TREAT_START) ? 1 : 0;
+    var treat = (curSharesSum * TREAT_CUTOFF > curVolSum && curDate > TREAT_START) ? 1 : 0;
+    // if(isNaN(treat) || isNaN, curVolSum / curSharesSum) continue;
     output.push([curIsin, curMon + curYear * 12, effectiveTick, treat, curVolSum / curSharesSum].join('\t'));
   };
   
@@ -97,6 +100,7 @@ fs.readFile(TAQ_FILE, 'utf-8', function(err, res) {
       curIsin = isinI;
       curMon = monI;
       curYear = yearI;
+      curDate = dateI;
       reset();
     }
     var closePrice = parseFloat(resI[COL_CLOSE]);

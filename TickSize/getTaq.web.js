@@ -1,5 +1,5 @@
 var URL_TAQ = 'https://www.euronext.com/nyx_eu_listings/price_chart/download_historical';
-var START_DATE = new Date('01/01/2010');
+var START_DATE = new Date('01/01/2000');
 var END_DATE = new Date('12/31/2014');
 var MIC_SPECIAL = [];
 MIC_SPECIAL['BE0003818359'] = 'XAMS';

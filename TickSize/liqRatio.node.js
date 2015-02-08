@@ -10,7 +10,7 @@ var COL_OPEN = 3;
 var COL_CLOSE = 6;
 var COL_SHARES = 7;
 var COL_VOL = 9;
-var DAYCOUNT_THRESHOLD = 15;
+var DAYCOUNT_THRESHOLD = 1;
 
 var output = [];
 
